@@ -74,6 +74,33 @@
   .pill.line{background:transparent;border:1px solid var(--line);color:var(--muted)}
   .pill.gold{background:var(--amber-dim);color:#9A6B00}
 
+  /* ===== hero · impactful entry, tool-flavored ===== */
+  .hero{margin-bottom:30px}
+  .hero-status{display:inline-flex;align-items:center;gap:10px;font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:6px 14px;margin-bottom:24px;box-shadow:var(--shadow-sm)}
+  .livedot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2.1s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(17,185,129,.45)}70%{box-shadow:0 0 0 7px rgba(17,185,129,0)}100%{box-shadow:0 0 0 0 rgba(17,185,129,0)}}
+  .hero-da{margin-left:2px;padding-left:12px;border-left:1px solid var(--line);color:var(--ink)}
+  .hero-da b{font-family:'Archivo';font-weight:800}
+  .hero-da span{color:var(--muted)}
+  .hero-main{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+  .hero-main .favicon{width:50px;height:50px;border-radius:14px;font-size:21px;flex-shrink:0}
+  .hero-text{min-width:0;width:100%}
+  .hero-eyebrow{font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--coral);font-weight:700;margin-bottom:10px}
+  .hero-h1{font-family:'Archivo';font-weight:900;font-size:clamp(46px,9.2vw,108px);line-height:.92;letter-spacing:-.04em}
+  .hero-tagline{font-family:'Archivo';font-weight:800;font-size:clamp(18px,2.5vw,28px);line-height:1.15;letter-spacing:-.02em;color:var(--ink);margin-top:18px;max-width:24ch}
+  .hero-sub{font-size:clamp(15px,1.7vw,18px);color:var(--muted);margin-top:14px;max-width:60ch;line-height:1.55}
+  .hero-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:17px}
+  .hero-tags{margin-top:18px;gap:8px}
+  .hero-cta{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}
+  .btn-line{background:transparent;border:1px solid var(--line);color:var(--ink)}
+  .btn-line:hover{border-color:var(--ink);background:var(--surface);transform:translateY(-2px)}
+  @media (max-width:600px){
+    .hero-main{gap:14px}
+    .hero-main .favicon{width:46px;height:46px;font-size:19px}
+    .hero-cta{width:100%}.hero-cta .btn{flex:1;justify-content:center}
+    .hero-status{font-size:10px}
+  }
+
   .strip-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:12px}
   .strip-label{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
   .chip-soft{font-size:12px;font-weight:600;color:#374151;background:var(--surface);border:1px solid var(--line);padding:5px 12px;border-radius:20px;display:inline-flex;align-items:center;gap:6px}
@@ -379,23 +406,36 @@
 
     <main class="content">
 
-      <div class="domain-head" id="overview">
-        <div class="favicon">AR</div>
-        <div class="domain-meta">
-          <h1 data-t="hero.title">Andrés Rendón · SEO &amp; Content Strategist</h1>
-          <div class="url">
-            andresrendon.com
-            <span class="verified" data-t="hero.verified">✓ results verified in GSC + GA4</span>
-            <a class="li-link" href="https://www.linkedin.com/in/andresrendonromero/" target="_blank" rel="noopener">in/andresrendonromero ↗</a>
+      <section class="hero" id="overview">
+        <div class="hero-status">
+          <span class="livedot"></span>
+          <span data-t="hero.status">Live audit · andresrendon.com · scan complete</span>
+          <span class="hero-da">DA <b>78</b><span>/100</span></span>
+        </div>
+        <div class="hero-main">
+          <div class="favicon">AR</div>
+          <div class="hero-text">
+            <div class="hero-eyebrow" data-t="hero.eyebrow">Domain overview</div>
+            <h1 class="hero-h1" data-t="hero.name">Andrés Rendón</h1>
+            <p class="hero-tagline" data-t="hero.h1">A finance professional who writes the content that ranks.</p>
+            <p class="hero-sub" data-t="hero.sub">Bilingual SEO &amp; content strategist, EN/ES. Real E-E-A-T for the YMYL niches where Google rewards real expertise. Ex-KPMG.</p>
+            <div class="hero-meta">
+              <span class="verified" data-t="hero.verified">✓ results verified in GSC + GA4</span>
+              <a class="li-link" href="https://www.linkedin.com/in/andresrendonromero/" target="_blank" rel="noopener">in/andresrendonromero ↗</a>
+            </div>
+            <div class="domain-tags hero-tags">
+              <span class="pill gold" data-t="pill.finance">🎓 Finance Bachelor Degree · ex-KPMG</span>
+              <span class="pill green" data-t="pill.eeat">E-E-A-T in YMYL niches</span>
+              <span class="pill coral" data-t="pill.langmkt">EN ⇄ ES · LATAM</span>
+              <span class="pill dark" data-t="pill.mx">México</span>
+            </div>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="mailto:arendon9128@gmail.com" data-t="hero.cta1">Send me a page that won’t rank →</a>
+              <a class="btn btn-line" href="#cases" data-t="hero.cta2">See the case studies</a>
+            </div>
           </div>
         </div>
-        <div class="domain-tags">
-          <span class="pill gold" data-t="pill.finance">🎓 Finance Bachelor Degree · ex-KPMG</span>
-          <span class="pill green" data-t="pill.eeat">E-E-A-T in YMYL niches</span>
-          <span class="pill coral" data-t="pill.langmkt">EN ⇄ ES · LATAM</span>
-          <span class="pill dark" data-t="pill.mx">México</span>
-        </div>
-      </div>
+      </section>
 
       <div class="strip-row">
         <span class="strip-label" data-t="niches.label">Verticals</span>
@@ -566,6 +606,13 @@
       'search.sdd':'Case studies · pick one to open its report',
       'hero.title':'Andrés Rendón · SEO &amp; Content Strategist',
       'hero.verified':'✓ results verified in GSC + GA4',
+      'hero.status':'Live audit · andresrendon.com · scan complete',
+      'hero.eyebrow':'Domain overview',
+      'hero.name':'Andrés Rendón',
+      'hero.h1':'A finance professional who writes the content that ranks.',
+      'hero.sub':'Bilingual SEO &amp; content strategist, EN/ES. Real E-E-A-T for the YMYL niches where Google rewards real expertise. Ex-KPMG.',
+      'hero.cta1':'Send me a page that won’t rank →',
+      'hero.cta2':'See the case studies',
       'pill.finance':'🎓 Finance Bachelor Degree · ex-KPMG','pill.eeat':'E-E-A-T in YMYL niches','pill.onoff':'On-page + Off-page SEO',
       'pill.langmkt':'EN ⇄ ES · LATAM','pill.mx':'México','pill.remote':'🌎 Remote',
       'niches.label':'Verticals','certs.label':'Certifications','stack.label':'Stack',
@@ -592,6 +639,13 @@
       'search.sdd':'Casos de estudio · elige uno para abrir su reporte',
       'hero.title':'Andrés Rendón · Estratega de SEO y Contenido',
       'hero.verified':'✓ resultados verificados en GSC + GA4',
+      'hero.status':'Auditoría en vivo · andresrendon.com · scan completo',
+      'hero.eyebrow':'Resumen del dominio',
+      'hero.name':'Andrés Rendón',
+      'hero.h1':'Un profesional de finanzas que escribe el contenido que rankea.',
+      'hero.sub':'Estratega bilingüe de SEO y contenido, EN/ES. E-E-A-T real para los nichos YMYL donde Google premia la expertise. Ex-KPMG.',
+      'hero.cta1':'Enséñame una página que no rankea →',
+      'hero.cta2':'Ver los casos de estudio',
       'pill.finance':'🎓 Licenciado en Finanzas y Banca · ex-KPMG','pill.eeat':'E-E-A-T en nichos YMYL','pill.onoff':'SEO On-page + Off-page',
       'pill.langmkt':'EN ⇄ ES · LATAM','pill.mx':'México','pill.remote':'🌎 Remoto',
       'niches.label':'Verticales','certs.label':'Certificaciones','stack.label':'Stack',
