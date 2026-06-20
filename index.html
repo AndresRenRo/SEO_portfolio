@@ -366,7 +366,7 @@
           </div>
         </div>
         <div class="domain-tags">
-          <span class="pill gold" data-t="pill.finance">🎓 Finance pro · ex-KPMG</span>
+          <span class="pill gold" data-t="pill.finance">🎓 Finance Bachelor Degree · ex-KPMG</span>
           <span class="pill green" data-t="pill.eeat">E-E-A-T in YMYL niches</span>
           <span class="pill green" data-t="pill.onoff">On-page + Off-page SEO</span>
           <span class="pill coral" data-t="pill.langmkt">EN ⇄ ES · LATAM</span>
@@ -379,9 +379,13 @@
         <span class="strip-label" data-t="niches.label">Verticals</span>
         <span id="nicheList" style="display:contents"></span>
       </div>
-      <div class="strip-row strip-certs">
+      <div class="strip-row">
         <span class="strip-label" data-t="certs.label">Certifications</span>
         <span id="certList" style="display:contents"></span>
+      </div>
+      <div class="strip-row strip-certs">
+        <span class="strip-label" data-t="stack.label">Stack</span>
+        <span id="stackList" style="display:contents"></span>
       </div>
 
       <section class="kpi-grid">
@@ -540,9 +544,9 @@
       'search.sdd':'Case studies · pick one to open its report',
       'hero.title':'Andrés Rendón · SEO &amp; Content Strategist',
       'hero.verified':'✓ results verified in GSC + GA4',
-      'pill.finance':'🎓 Finance pro · ex-KPMG','pill.eeat':'E-E-A-T in YMYL niches','pill.onoff':'On-page + Off-page SEO',
+      'pill.finance':'🎓 Finance Bachelor Degree · ex-KPMG','pill.eeat':'E-E-A-T in YMYL niches','pill.onoff':'On-page + Off-page SEO',
       'pill.langmkt':'EN ⇄ ES · LATAM','pill.mx':'México','pill.remote':'🌎 Remote',
-      'niches.label':'Verticals','certs.label':'Certifications',
+      'niches.label':'Verticals','certs.label':'Certifications','stack.label':'Stack',
       'kpi1.label':'⚡ Authority Score','kpi1.delta':'▲ ex-KPMG · finance degree',
       'kpi2.label':'📈 Organic traffic built','kpi2.delta':'▲ peak /mo · 3 properties',
       'kpi3.label':'⌗ Articles shipped','kpi3.delta':'▲ iGaming · fintech · crypto',
@@ -566,9 +570,9 @@
       'search.sdd':'Casos de estudio · elige uno para abrir su reporte',
       'hero.title':'Andrés Rendón · Estratega de SEO y Contenido',
       'hero.verified':'✓ resultados verificados en GSC + GA4',
-      'pill.finance':'🎓 Financiero · ex-KPMG','pill.eeat':'E-E-A-T en nichos YMYL','pill.onoff':'SEO On-page + Off-page',
+      'pill.finance':'🎓 Licenciado en Finanzas y Banca · ex-KPMG','pill.eeat':'E-E-A-T en nichos YMYL','pill.onoff':'SEO On-page + Off-page',
       'pill.langmkt':'EN ⇄ ES · LATAM','pill.mx':'México','pill.remote':'🌎 Remoto',
-      'niches.label':'Verticales','certs.label':'Certificaciones',
+      'niches.label':'Verticales','certs.label':'Certificaciones','stack.label':'Stack',
       'kpi1.label':'⚡ Authority Score','kpi1.delta':'▲ ex-KPMG · grado en finanzas',
       'kpi2.label':'📈 Tráfico orgánico construido','kpi2.delta':'▲ pico /mes · 3 propiedades',
       'kpi3.label':'⌗ Artículos publicados','kpi3.delta':'▲ iGaming · fintech · crypto',
@@ -594,6 +598,8 @@
                 es:['iGaming','Fintech','Crypto','Banca de consumo','Educación de trading','Link Building / Off-page']};
   const CERTS={en:['Semrush Certified','Google Analytics (GA4)','API integration (GSC · GA4 · Semrush)'],
                es:['Certificado en Semrush','Google Analytics (GA4)','Integración de APIs (GSC · GA4 · Semrush)']};
+  const STACK={en:['WordPress','PHP','HTML / CSS / JS','RankMath','GeneratePress','Schema / JSON-LD','Cloudways'],
+               es:['WordPress','PHP','HTML / CSS / JS','RankMath','GeneratePress','Schema / JSON-LD','Cloudways']};
 
   /* ============ keyword rows ============ */
   const ROWS=[
@@ -639,6 +645,12 @@
      capL:{en:'What this includes',es:'Qué incluye'},
      caps:{en:['Answer-first formatting','Structured data','Entity optimization','AI-citation engineering','Featured-snippet targeting'],
             es:['Formato answer-first','Datos estructurados','Optimización de entidades','Ingeniería de citas en IA','Targeting de featured snippets']}},
+    {vol:'9,900',kd:79,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'Hands-on',es:'Hands-on'},sc:'gold',
+     label:{en:'WordPress, PHP &amp; on-page implementation',es:'WordPress, PHP e implementación on-page'},
+     sub:{en:'I build it, not just brief it',es:'lo construyo, no solo lo dejo en brief'},
+     capL:{en:'The build stack',es:'El stack de construcción'},
+     caps:{en:['WordPress','PHP','HTML / CSS / JS','RankMath','GeneratePress','Custom templates','Schema / JSON-LD','Code Snippets','Cloudways'],
+            es:['WordPress','PHP','HTML / CSS / JS','RankMath','GeneratePress','Plantillas a medida','Schema / JSON-LD','Code Snippets','Cloudways']}},
     {vol:'6,600',kd:86,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'–',es:'–'},sc:'none',
      label:{en:'technical SEO migrations',es:'migraciones de SEO técnico'},
      sub:{en:'Ghost → WordPress, hreflang, schema, CWV',es:'Ghost → WordPress, hreflang, schema, CWV'},
@@ -777,6 +789,9 @@
   }
   function renderCerts(){
     document.getElementById('certList').innerHTML = CERTS[LANG].map(c=>'<span class="chip-soft"><span class="ck">✓</span>'+c+'</span>').join('');
+  }
+  function renderStack(){
+    document.getElementById('stackList').innerHTML = STACK[LANG].map(c=>'<span class="chip-soft"><span class="ck" style="color:var(--cobalt)">⟨/⟩</span>'+c+'</span>').join('');
   }
   function renderKeywords(){
     const body=document.getElementById('kwBody');
@@ -941,7 +956,7 @@
     LANG=lang; document.documentElement.lang=lang;
     document.querySelectorAll('[data-t]').forEach(el=>{ const k=el.getAttribute('data-t'); if(I18N[lang][k]!==undefined) el.innerHTML=I18N[lang][k]; });
     document.querySelectorAll('[data-t-ph]').forEach(el=>{ const k=el.getAttribute('data-t-ph'); if(I18N[lang][k]!==undefined) el.placeholder=I18N[lang][k]; });
-    renderNiches(); renderCerts(); renderKeywords(); renderCaseItems();
+    renderNiches(); renderCerts(); renderStack(); renderKeywords(); renderCaseItems();
     if(window.__buildSuggestions) window.__buildSuggestions('');
     document.querySelectorAll('.langbtn').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
     if(!overlay.hidden) closeModal();
