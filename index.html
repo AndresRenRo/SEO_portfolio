@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SERPiente · Domain Analysis — andresrendon.com</title>
-<meta name="description" content="Andrés Rendón — bilingual SEO & content strategist. Finance pro, ex-KPMG. E-E-A-T for YMYL niches. Portfolio as an SEO platform.">
+<title>Overrank · Andrés Rendón · SEO & Content Strategist</title>
+<meta name="description" content="Andrés Rendón, bilingual SEO & content strategist. Finance pro, ex-KPMG. E-E-A-T for YMYL niches. Portfolio as an SEO platform.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -30,14 +30,16 @@
 
   .main{flex:1;min-width:0;display:flex;flex-direction:column}
   .topbar{background:var(--surface);border-bottom:1px solid var(--line);padding:14px 28px;display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:30}
-  .wordmark{font-family:'Archivo',sans-serif;font-weight:900;font-size:19px;letter-spacing:-.02em;display:flex;align-items:center;gap:7px;flex-shrink:0}
+  .wordmark{font-family:'Archivo',sans-serif;font-weight:900;font-size:19px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px;flex-shrink:0}
+  .wm-logo{width:27px;height:27px;border-radius:8px;background:var(--coral);display:grid;place-items:center;flex-shrink:0;box-shadow:0 5px 14px -6px var(--coral)}
+  .wm-name{white-space:nowrap}
   .wordmark .dot{color:var(--coral)}
   .wordmark .tag{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;background:var(--coral-dim);color:var(--coral);padding:2px 6px;border-radius:5px;letter-spacing:.04em;text-transform:uppercase}
   .searchbar{width:100%;display:flex;align-items:center;gap:10px;background:var(--canvas);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:14px}
   .search-wrap{position:relative;flex:1;max-width:520px}
   .searchbar svg{flex-shrink:0;color:var(--muted)}
   .searchbar input{border:0;background:transparent;outline:0;font-family:'Space Mono',monospace;font-size:13px;color:var(--ink);width:100%}
-  .searchbar .kbd{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:2px 6px;background:#fff;flex-shrink:0}
+  .searchbar .kbd{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:2px 6px;background:var(--surface);flex-shrink:0}
   .search-dd{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--surface);border:1px solid var(--line);border-radius:13px;box-shadow:0 20px 44px -16px rgba(19,21,28,.28);padding:7px;z-index:60;animation:pop .16s ease}
   .search-dd[hidden]{display:none}
   .sdd-label{font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:7px 9px 8px}
@@ -51,7 +53,7 @@
   .sdd-empty{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);padding:10px}
   .topbar-actions{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
   .langtoggle{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-  .langbtn{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;padding:5px 9px;background:#fff;border:0;cursor:pointer;color:var(--muted);display:flex;align-items:center;gap:4px;transition:.15s}
+  .langbtn{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;padding:5px 9px;background:var(--surface);border:0;cursor:pointer;color:var(--muted);display:flex;align-items:center;gap:4px;transition:.15s}
   .langbtn.active{background:var(--ink);color:#fff}
   .kbdpill{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:4px 7px}
   .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--coral),#FF8A6E);display:grid;place-items:center;font-family:'Archivo';font-weight:800;color:#fff;font-size:13px}
@@ -180,7 +182,7 @@
   @keyframes fade{from{opacity:0}}
   .modal{background:var(--surface);border-radius:18px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;padding:26px 28px;position:relative;box-shadow:0 30px 80px -20px rgba(0,0,0,.45);animation:pop .25s cubic-bezier(.2,.8,.3,1)}
   @keyframes pop{from{transform:translateY(14px) scale(.985);opacity:0}}
-  .modal-close{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:13px;color:var(--muted);display:grid;place-items:center;transition:.15s}
+  .modal-close{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:13px;color:var(--muted);display:grid;place-items:center;transition:.15s}
   .modal-close:hover{background:var(--canvas);color:var(--ink)}
   .modal-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-right:42px;flex-wrap:wrap}
   .m-fav{width:46px;height:46px;border-radius:11px;display:grid;place-items:center;font-family:'Archivo';font-weight:800;color:#fff;font-size:13px;flex-shrink:0}
@@ -202,7 +204,7 @@
   .dd-overlay{position:fixed;inset:0;background:var(--canvas);z-index:110;overflow-y:auto}
   .dd-overlay[hidden]{display:none}
   .dd-bar{position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--line);padding:13px 24px;display:flex;align-items:center;gap:14px;z-index:5}
-  .dd-back{font-family:'Archivo';font-weight:700;font-size:13px;cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 14px;display:inline-flex;align-items:center;gap:7px;transition:.15s}
+  .dd-back{font-family:'Archivo';font-weight:700;font-size:13px;cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:8px 14px;display:inline-flex;align-items:center;gap:7px;transition:.15s}
   .dd-back:hover{background:var(--canvas)}
   .dd-wrap{max-width:860px;margin:0 auto;padding:44px 24px 90px;animation:pop .3s cubic-bezier(.2,.8,.3,1)}
   .dd-eyebrow{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral)}
@@ -277,7 +279,6 @@
     .favicon{width:50px;height:50px;font-size:22px}
     .panel{padding:16px 16px}
     .cta h2{font-size:20px}.btn{flex:1;justify-content:center}
-    .rail-item:nth-child(n+6){display:none}
     .m-stats{grid-template-columns:1fr 1fr}.modal{padding:20px 18px}
     .dd-biz{grid-template-columns:1fr}
   }
@@ -287,6 +288,26 @@
     .kpi .num{font-size:36px}.kbdpill{display:none}
     .content{padding:14px 12px}.dd-strip{grid-template-columns:1fr}.dd-h1{font-size:25px}
   }
+  /* scroll anchors (offset for sticky topbar) */
+  #overview,#keywords,#cases,#positions,#contact{scroll-margin-top:88px}
+  .dd-sol-intro{font-size:15px;color:#2C3A34;line-height:1.55;margin-bottom:2px}
+
+  /* ===== dark mode ===== */
+  .rail-item.themeon{background:var(--rail-soft);color:#FFD66B}
+  body.dark{--canvas:#0E1117;--surface:#171B24;--ink:#E8EAED;--muted:#9AA1AC;--line:#252B36}
+  body.dark .favicon{background:#252B36;color:#E8EAED}
+  body.dark .pill.dark{background:#252B36;color:#E8EAED}
+  body.dark .langbtn.active{background:var(--coral);color:#fff}
+  body.dark .cta,body.dark .dd-cta{background-color:#0B0D12}
+  body.dark .dd-lede,body.dark .dd-section>p{color:#AEB6C2}
+  body.dark .dd-card{background:#23191A;border-color:#5A3034}
+  body.dark .dd-card p{color:#CBB8BA}
+  body.dark .dd-sol{background:#11241D;border-color:#225241}
+  body.dark .dd-sol-intro,body.dark .dd-sol li{color:#BFE6D6}
+  body.dark .cap-chip,body.dark .chip-soft,body.dark .m-wins li{color:#C3CAD4}
+  body.dark .search-dd{box-shadow:0 20px 44px -16px rgba(0,0,0,.6)}
+  body.dark .modal{box-shadow:0 30px 80px -20px rgba(0,0,0,.7)}
+
   @media (prefers-reduced-motion:reduce){
     .trend-line{animation:none;stroke-dashoffset:0}
     .gauge-arc{animation:none;stroke-dashoffset:55}
@@ -298,19 +319,19 @@
 <body>
 
   <nav class="rail" aria-label="Navigation">
-    <div class="rail-logo" title="SERPiente">🐍</div>
-    <div class="rail-item active" title="Domain Overview">▦</div>
-    <div class="rail-item" title="Keywords">⌗</div>
-    <div class="rail-item" title="Case studies">📈</div>
-    <div class="rail-item" title="Positions">◎</div>
-    <div class="rail-item" title="Content">✎</div>
+    <div class="rail-logo" id="railLogo" title="Back to top" role="button" tabindex="0"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+    <div class="rail-item active" data-target="overview" title="Overview" role="button" tabindex="0">▦</div>
+    <div class="rail-item" data-target="keywords" title="Keywords" role="button" tabindex="0">⌗</div>
+    <div class="rail-item" data-target="cases" title="Case studies" role="button" tabindex="0">📈</div>
+    <div class="rail-item" data-target="positions" title="Positions" role="button" tabindex="0">◎</div>
+    <div class="rail-item" data-target="contact" title="Contact" role="button" tabindex="0">✉</div>
     <div class="rail-spacer"></div>
-    <div class="rail-item" title="Settings">⚙</div>
+    <div class="rail-item" id="themeBtn" title="Toggle dark mode" role="button" tabindex="0">🌙</div>
   </nav>
 
   <div class="main">
     <header class="topbar">
-      <div class="wordmark">SERP<span class="dot">iente</span> <span class="tag">v0.1 beta</span></div>
+      <div class="wordmark"><span class="wm-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="wm-name">Over<span class="dot">rank</span></span> <span class="tag">v0.1 beta</span></div>
       <div class="search-wrap">
         <div class="searchbar">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>
@@ -318,7 +339,7 @@
           <span class="kbd">↵</span>
         </div>
         <div class="search-dd" id="searchDD" hidden>
-          <div class="sdd-label" data-t="search.sdd">Case studies — pick one to open its report</div>
+          <div class="sdd-label" data-t="search.sdd">Case studies · pick one to open its report</div>
           <div class="sdd-list"></div>
         </div>
       </div>
@@ -334,7 +355,7 @@
 
     <main class="content">
 
-      <div class="domain-head">
+      <div class="domain-head" id="overview">
         <div class="favicon">AR</div>
         <div class="domain-meta">
           <h1 data-t="hero.title">Andrés Rendón · SEO &amp; Content Strategist</h1>
@@ -389,7 +410,7 @@
       <section class="row">
         <div class="panel">
           <div class="panel-head">
-            <h2 data-t="chart.title">📈 Organic traffic — career trajectory</h2>
+            <h2 data-t="chart.title">📈 Organic traffic · career trajectory</h2>
             <div class="legend"><span><i style="background:var(--coral)"></i><span data-t="chart.legend">combined visits/mo (K)</span></span></div>
           </div>
           <svg class="chart-svg" viewBox="0 0 640 230" preserveAspectRatio="none" role="img" aria-label="Career organic traffic trajectory">
@@ -424,12 +445,12 @@
             </svg>
             <div class="gauge-score">78</div>
             <div class="gauge-cap" data-t="gauge.cap">Domain Authority</div>
-            <p class="gauge-note" data-t="gauge.note">A finance professional who writes the content too — fluent in banking, trading and markets.</p>
+            <p class="gauge-note" data-t="gauge.note">A finance professional who writes the content too, fluent in banking, trading and markets.</p>
           </div>
         </div>
       </section>
 
-      <section class="panel" style="margin-bottom:16px">
+      <section class="panel" id="keywords" style="margin-bottom:16px">
         <div class="panel-head">
           <h2><span data-t="kw.title">⌗ Top organic keywords</span> <span class="pill coral" style="font-size:9px;padding:3px 8px" data-t="kw.badge">ranked skills</span></h2>
           <span class="sub" data-t="kw.sub">tap a row to expand capabilities</span>
@@ -444,14 +465,14 @@
         </div>
       </section>
 
-      <section class="row2">
+      <section class="row2" id="cases">
         <div class="panel">
-          <div class="panel-head"><h2 data-t="cs.title">📈 Case studies — organic growth</h2><span class="sub" data-t="cs.sub">click for the full report</span></div>
+          <div class="panel-head"><h2 data-t="cs.title">📈 Case studies · organic growth</h2><span class="sub" data-t="cs.sub">click for the full report</span></div>
           <div id="csList"></div>
           <p class="cs-foot" data-t="cs.foot"></p>
         </div>
 
-        <div class="panel">
+        <div class="panel" id="positions">
           <div class="panel-head"><h2><span data-t="mdc.title">◎ What I ranked at MDC</span> <span class="pill coral" style="font-size:9px;padding:3px 8px" data-t="mdc.badge">highlight</span></h2><span class="sub" data-t="mdc.sub">live · Semrush · positions</span></div>
           <div class="dist-row"><span class="dist-label">Top 3</span><div class="dist-track"><div class="dist-fill" style="--w:14%;background:var(--green)"></div></div><span class="dist-num" style="color:var(--green)">388</span></div>
           <div class="dist-row"><span class="dist-label">4–10</span><div class="dist-track"><div class="dist-fill" style="--w:32%;background:var(--amber)"></div></div><span class="dist-num" style="color:var(--amber)">858</span></div>
@@ -468,13 +489,13 @@
         </div>
       </section>
 
-      <section class="cta">
+      <section class="cta" id="contact">
         <div>
-          <h2 data-t="cta.title">Want this domain on your team?</h2>
-          <p data-t="cta.p">Strategy and execution in one person — bilingual EN/ES, finance-grade rigor, results verified in GSC + GA4. Currently taking on select Q3 projects.</p>
+          <h2 data-t="cta.title">Send me a page that won’t rank. I’ll tell you why: <span style="color:var(--coral)">completely free</span>.</h2>
+          <p data-t="cta.p">Then we talk about the rest: finance-grade SEO and content, EN/ES, results verified in GSC + GA4.</p>
         </div>
         <div class="cta-actions">
-          <a class="btn btn-primary" href="mailto:arendon9128@gmail.com" data-t="cta.btn1">Start a conversation →</a>
+          <a class="btn btn-primary" href="mailto:arendon9128@gmail.com" data-t="cta.btn1">Send me a page →</a>
           <a class="btn btn-ghost" href="https://www.linkedin.com/in/andresrendonromero/" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </section>
@@ -488,7 +509,7 @@
   <div class="dd-overlay" id="deepdive" hidden>
     <div class="dd-bar">
       <button class="dd-back" id="ddBack" data-t="dd.back">← Back to dashboard</button>
-      <div class="wordmark">SERP<span class="dot">iente</span></div>
+      <div class="wordmark"><span class="wm-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="wm-name">Over<span class="dot">rank</span></span></div>
     </div>
     <div class="dd-wrap" id="dd-wrap"></div>
   </div>
@@ -516,7 +537,7 @@
   const I18N={
     en:{
       'search.ph':'Search a case study…',
-      'search.sdd':'Case studies — pick one to open its report',
+      'search.sdd':'Case studies · pick one to open its report',
       'hero.title':'Andrés Rendón · SEO &amp; Content Strategist',
       'hero.verified':'✓ results verified in GSC + GA4',
       'pill.finance':'🎓 Finance pro · ex-KPMG','pill.eeat':'E-E-A-T in YMYL niches','pill.onoff':'On-page + Off-page SEO',
@@ -526,23 +547,23 @@
       'kpi2.label':'📈 Organic traffic built','kpi2.delta':'▲ peak /mo · 3 properties',
       'kpi3.label':'⌗ Articles shipped','kpi3.delta':'▲ iGaming · fintech · crypto',
       'kpi4.label':'🏆 Ranked keywords','kpi4.delta':'◆ 1.6K → 11.4K at MDC',
-      'chart.title':'📈 Organic traffic — career trajectory','chart.legend':'combined visits/mo (K)',
-      'gauge.cap':'Domain Authority','gauge.note':'A finance professional who writes the content too — fluent in banking, trading and markets.',
+      'chart.title':'📈 Organic traffic · career trajectory','chart.legend':'combined visits/mo (K)',
+      'gauge.cap':'Domain Authority','gauge.note':'A finance professional who writes the content too, fluent in banking, trading and markets.',
       'kw.title':'⌗ Top organic keywords','kw.badge':'ranked skills','kw.sub':'tap a row to expand capabilities',
       'th.kw':'Keyword (skill)','th.vol':'Volume','th.kd':'KD %','th.pos':'Pos.','th.serp':'SERP feature',
-      'cs.title':'📈 Case studies — organic growth','cs.sub':'click for the full report',
-      'cs.foot':'+ <b>1,800+ articles</b> shipped across iGaming, fintech &amp; crypto.<br>Bachelor\u2019s in Finance &amp; Banking · ex-<b>Transfer Pricing @ KPMG</b> — content that passes legal review.',
+      'cs.title':'📈 Case studies · organic growth','cs.sub':'click for the full report',
+      'cs.foot':'+ <b>1,800+ articles</b> shipped across iGaming, fintech &amp; crypto.<br>Bachelor\u2019s in Finance &amp; Banking · ex-<b>Transfer Pricing @ KPMG</b>, content that passes legal review.',
       'mdc.title':'◎ What I ranked at MDC','mdc.badge':'highlight','mdc.sub':'live · Semrush · positions',
       'feat.title':'Reach &amp; SERP features','feat.top3':'in Top 3','feat.total':'Peak keywords','feat.organic':'Organic /mo',
-      'cta.title':'Want this domain on your team?',
-      'cta.p':'Strategy and execution in one person — bilingual EN/ES, finance-grade rigor, results verified in GSC + GA4. Currently taking on select Q3 projects.',
-      'cta.btn1':'Start a conversation →',
-      'foot.text':'This isn\u2019t Semrush. It\u2019s <b>Andrés Rendón\u2019s</b> portfolio dressed up as an SEO platform.<br>Case-study numbers verified in <b>GSC + GA4</b>. 🐍',
+      'cta.title':'Send me a page that won\u2019t rank. I\u2019ll tell you why: <span style="color:var(--coral)">completely free</span>.',
+      'cta.p':'Then we talk about the rest: finance-grade SEO and content, EN/ES, results verified in GSC + GA4.',
+      'cta.btn1':'Send me a page →',
+      'foot.text':'This isn\u2019t Semrush. It\u2019s <b>Andrés Rendón\u2019s</b> portfolio dressed up as an SEO platform.<br>Case-study numbers verified in <b>GSC + GA4</b>. ↗',
       'dd.back':'← Back to dashboard','m.winstitle':'What I did','m.full':'Read the full case study →','dd.ctaTitle':'Want the same on your domain?','cs.view':'View report →'
     },
     es:{
       'search.ph':'Busca un caso de estudio…',
-      'search.sdd':'Casos de estudio — elige uno para abrir su reporte',
+      'search.sdd':'Casos de estudio · elige uno para abrir su reporte',
       'hero.title':'Andrés Rendón · Estratega de SEO y Contenido',
       'hero.verified':'✓ resultados verificados en GSC + GA4',
       'pill.finance':'🎓 Financiero · ex-KPMG','pill.eeat':'E-E-A-T en nichos YMYL','pill.onoff':'SEO On-page + Off-page',
@@ -552,18 +573,18 @@
       'kpi2.label':'📈 Tráfico orgánico construido','kpi2.delta':'▲ pico /mes · 3 propiedades',
       'kpi3.label':'⌗ Artículos publicados','kpi3.delta':'▲ iGaming · fintech · crypto',
       'kpi4.label':'🏆 Keywords posicionadas','kpi4.delta':'◆ 1.6K → 11.4K en MDC',
-      'chart.title':'📈 Tráfico orgánico — trayectoria','chart.legend':'visitas/mes combinadas (K)',
-      'gauge.cap':'Autoridad de dominio','gauge.note':'Un profesional de finanzas que además escribe el contenido — domina banca, trading y mercados.',
+      'chart.title':'📈 Tráfico orgánico · trayectoria','chart.legend':'visitas/mes combinadas (K)',
+      'gauge.cap':'Autoridad de dominio','gauge.note':'Un profesional de finanzas que además escribe el contenido, domina banca, trading y mercados.',
       'kw.title':'⌗ Top keywords orgánicas','kw.badge':'skills posicionadas','kw.sub':'toca una fila para ver capacidades',
       'th.kw':'Keyword (skill)','th.vol':'Volumen','th.kd':'KD %','th.pos':'Pos.','th.serp':'SERP feature',
-      'cs.title':'📈 Casos de estudio — crecimiento orgánico','cs.sub':'clic para el reporte completo',
-      'cs.foot':'+ <b>1,800+ artículos</b> publicados en iGaming, fintech y crypto.<br>Bachelor\u2019s in Finance &amp; Banking · ex-<b>Transfer Pricing @ KPMG</b> — contenido que pasa revisión legal.',
+      'cs.title':'📈 Casos de estudio · crecimiento orgánico','cs.sub':'clic para el reporte completo',
+      'cs.foot':'+ <b>1,800+ artículos</b> publicados en iGaming, fintech y crypto.<br>Bachelor\u2019s in Finance &amp; Banking · ex-<b>Transfer Pricing @ KPMG</b>, contenido que pasa revisión legal.',
       'mdc.title':'◎ Lo que posicioné en MDC','mdc.badge':'destacado','mdc.sub':'en vivo · Semrush · posiciones',
       'feat.title':'Alcance y SERP features','feat.top3':'en Top 3','feat.total':'Keywords pico','feat.organic':'Orgánico /mes',
-      'cta.title':'¿Quieres este dominio en tu equipo?',
-      'cta.p':'Estrategia y ejecución en una sola persona — bilingüe EN/ES, rigor financiero, resultados verificados en GSC + GA4. Tomando proyectos selectos este Q3.',
-      'cta.btn1':'Iniciar conversación →',
-      'foot.text':'Esto no es Semrush. Es el portafolio de <b>Andrés Rendón</b> disfrazado de plataforma SEO.<br>Cifras de los casos verificadas en <b>GSC + GA4</b>. 🐍',
+      'cta.title':'Enséñame una página que no rankea. Yo te diré por qué: <span style="color:var(--coral)">totalmente gratis</span>.',
+      'cta.p':'De ahí hablamos del resto: SEO y contenido con rigor financiero, EN/ES, resultados verificados en GSC + GA4.',
+      'cta.btn1':'Enséñame una página →',
+      'foot.text':'Esto no es Semrush. Es el portafolio de <b>Andrés Rendón</b> disfrazado de plataforma SEO.<br>Cifras de los casos verificadas en <b>GSC + GA4</b>. ↗',
       'dd.back':'← Volver al dashboard','m.winstitle':'Lo que hice','m.full':'Leer el caso completo →','dd.ctaTitle':'¿Quieres lo mismo en tu dominio?','cs.view':'Ver reporte →'
     }
   };
@@ -594,13 +615,13 @@
      capL:{en:'What this includes',es:'Qué incluye'},
      caps:{en:['Title &amp; meta optimization','Header / content structure','Internal linking','Schema / JSON-LD','Keyword targeting &amp; intent','Image &amp; Core Web Vitals'],
             es:['Optimización de title y meta','Estructura de contenido','Enlazado interno','Schema / JSON-LD','Targeting de keywords e intención','Imágenes y Core Web Vitals']}},
-    {vol:'12,100',kd:81,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'—',es:'—'},sc:'none',
+    {vol:'12,100',kd:81,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'–',es:'–'},sc:'none',
      label:{en:'off-page SEO &amp; link building',es:'SEO off-page y link building'},
      sub:{en:'authority, not just on-site work',es:'autoridad, no solo trabajo on-site'},
      capL:{en:'What this includes',es:'Qué incluye'},
      caps:{en:['Link building','Digital PR &amp; outreach','Backlink audits','Anchor-text strategy','Referring-domain growth','Authority building'],
             es:['Link building','PR digital y outreach','Auditorías de backlinks','Estrategia de anchor text','Crecimiento de dominios de referencia','Construcción de autoridad']}},
-    {vol:'22,200',kd:83,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'—',es:'—'},sc:'none',
+    {vol:'22,200',kd:83,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'–',es:'–'},sc:'none',
      label:{en:'topical authority (hub &amp; spoke)',es:'autoridad temática (hub &amp; spoke)'},
      sub:{en:'0 → 5K/mo organic, País Lector',es:'0 → 5K/mes orgánico, País Lector'},
      capL:{en:'What this includes',es:'Qué incluye'},
@@ -618,13 +639,13 @@
      capL:{en:'What this includes',es:'Qué incluye'},
      caps:{en:['Answer-first formatting','Structured data','Entity optimization','AI-citation engineering','Featured-snippet targeting'],
             es:['Formato answer-first','Datos estructurados','Optimización de entidades','Ingeniería de citas en IA','Targeting de featured snippets']}},
-    {vol:'6,600',kd:86,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'—',es:'—'},sc:'none',
+    {vol:'6,600',kd:86,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'–',es:'–'},sc:'none',
      label:{en:'technical SEO migrations',es:'migraciones de SEO técnico'},
      sub:{en:'Ghost → WordPress, hreflang, schema, CWV',es:'Ghost → WordPress, hreflang, schema, CWV'},
      capL:{en:'What this includes',es:'Qué incluye'},
      caps:{en:['Platform migrations','hreflang','Redirect mapping','Crawl / index control','Core Web Vitals','Schema / JSON-LD'],
             es:['Migraciones de plataforma','hreflang','Mapeo de redirects','Control de rastreo / indexación','Core Web Vitals','Schema / JSON-LD']}},
-    {vol:'5,400',kd:68,kdc:'var(--amber)',pos:1,pc:'p1',serp:{en:'—',es:'—'},sc:'none',
+    {vol:'5,400',kd:68,kdc:'var(--amber)',pos:1,pc:'p1',serp:{en:'–',es:'–'},sc:'none',
      label:{en:'multilingual SEO (EN ⇄ ES)',es:'SEO multilingüe (EN ⇄ ES)'},
      sub:{en:'one strategist, two markets, no translation',es:'un estratega, dos mercados, sin traducción'},
      capL:{en:'What this includes',es:'Qué incluye'},
@@ -637,111 +658,111 @@
     en:{
       companies:{
         mdc:{name:'MDC Trading',role:'SEO Content Manager · trading & finance',color:'#3D6BFF',fav:'MDC',delta:'1K → 45K',barW:94,growth:'45× organic · 11.4K keywords',
-          chartTitle:'Organic visits over time — visits/mo (K)',
+          chartTitle:'Organic visits over time · visits/mo (K)',
           series:[{l:'M0',v:1},{l:'',v:5},{l:'',v:11},{l:'',v:18},{l:'',v:26},{l:'',v:34},{l:'',v:41},{l:'M18',v:45}],
           stats:[['45K','organic /mo'],['388','keywords in top 3'],['2,110','SERP features'],['11.4K','ranked keywords']],
-          wins:['Built the entire SEO architecture from near zero — content map, cluster logic, compounding.','Keyword mapping across futures, forex, crypto and broker sub-verticals.','Cluster expansion: 1,600 → 11,424 ranked keywords.','Drove up to 183 qualified trading leads per month from organic.','Evergreen refresh cycles on seasonal intent, hreflang for US-Spanish, Trustpilot SEO, UTM tracking.']},
+          wins:['Built the entire SEO architecture from near zero, content map, cluster logic, compounding.','Keyword mapping across futures, forex, crypto and broker sub-verticals.','Cluster expansion: 1,600 → 11,424 ranked keywords.','Drove up to 183 qualified trading leads per month from organic.','Evergreen refresh cycles on seasonal intent, hreflang for US-Spanish, Trustpilot SEO, UTM tracking.']},
         tiu:{name:'The Investor U',role:'SEO & content lead · equities · ES',color:'#11B981',fav:'TIU',delta:'100 → 11K',barW:86,growth:'110× · 88% organic',
-          chartTitle:'Organic sessions over time — sessions/mo (K)',
+          chartTitle:'Organic sessions over time · sessions/mo (K)',
           series:[{l:'M0',v:0.1},{l:'',v:0.8},{l:'',v:2},{l:'',v:3.8},{l:'',v:5.8},{l:'',v:7.8},{l:'',v:9.6},{l:'M16',v:11}],
           stats:[['11K+','organic /mo'],['88%','of all traffic'],['85.1K','GSC clicks · 16mo'],['5.36M','impressions']],
           wins:['Took organic from ~100 to 11K+ monthly sessions in a competitive equities market.','Targeted low-competition keywords (dividends, P/E ratio, Warren Buffett portfolio) to rank fast without authority.','Made organic search 88% of all site traffic.','85.1K Search Console clicks and 5.36M impressions over 16 months.']},
         pl:{name:'País Lector',role:'Founder · own SEO lab · ES',color:'#FF5A3C',fav:'PL',delta:'0 → 5K',barW:62,growth:'built from zero · no budget',
-          chartTitle:'Organic clicks over time — GSC, last 16 mo (K)',
+          chartTitle:'Organic clicks over time · GSC, last 16 mo (K)',
           series:[{l:'2/25',v:0.4},{l:'',v:1.2},{l:'',v:2.1},{l:'',v:2.8},{l:'',v:3.4},{l:'',v:4.4},{l:'2/26',v:5.2},{l:'',v:4.3},{l:'6/26',v:3.6}],
           stats:[['39.5K','GSC clicks · 16mo'],['1.49M','impressions'],['8.6','avg. position'],['1.5K','organic keywords']],
-          wins:['Built from zero — no budget, no backlinks — against government-backed institutions and magazines.','Emotion-based hub-and-spoke architecture; 784K+ aggregate volume in the “Amor” cluster.','JSON-LD structured data, internal-linking systems, E-E-A-T through original analysis.','Now cited across AI search — ChatGPT, AI Overviews & Gemini (63 pages indexed).']}
+          wins:['Built from zero, no budget, no backlinks, against government-backed institutions and magazines.','Emotion-based hub-and-spoke architecture; 784K+ aggregate volume in the “Amor” cluster.','JSON-LD structured data, internal-linking systems, E-E-A-T through original analysis.','Now cited across AI search, ChatGPT, AI Overviews & Gemini (63 pages indexed).']}
       },
       deep:{
         mdc:{eyebrow:'Full case study · YMYL: Trading & Finance',h1:'MDC Trading: from 1K to 45K monthly organic visits.',
-          lede:'A trading platform that published constantly and ranked for almost nothing. The finance was wrong and the SEO was never applied — fatal in a YMYL niche where Google rewards demonstrable expertise. I fixed both in one pass.',
+          lede:'A trading platform that published constantly and ranked for almost nothing. The finance was wrong and the SEO was never applied, fatal in a YMYL niche where Google rewards demonstrable expertise. I fixed both in one pass.',
           strip:[['1K→45K','Monthly organic visits'],['+614%','Keywords (1.6K→11.4K)'],['388','Keywords in top 3'],['1M+','Impressions /mo peak']],
-          situation:'They were shipping content on a steady cadence. Traffic stayed flat. The blog kept growing; the rankings didn\u2019t. Two problems were quietly canceling out every article they published \u2014 and they fed each other.',
-          problems:[{tag:'Problem 01 — E-E-A-T',h3:'The finance was wrong',p:'The previous SEO didn\u2019t understand finance. Articles on futures, forex, brokers and risk were shallow or simply incorrect. Trading is textbook YMYL \u2014 Your Money or Your Life \u2014 and Google will not rank money content it can\u2019t trust. No expertise, no E-E-A-T, no rankings. Traders bounce the moment they spot an error.'},
-                    {tag:'Problem 02 — Architecture',h3:'The SEO was never applied',p:'Publishing without a system: no keyword mapping, no cluster logic, no search-intent match, no internal linking. Volume without architecture doesn\u2019t compound \u2014 it just fills a CMS.'}],
-          solIntro:'Because I\u2019m a finance professional <em>and</em> an SEO, there was no hand-off and no second hire. I built genuine E-E-A-T into a YMYL niche while fixing the architecture \u2014 in the same pass:',
-          solList:['Rewrote and deepened every money page with real financial accuracy \u2014 the first-hand expertise (the first \u201CE\u201D in E-E-A-T) a YMYL niche demands.','Mapped keywords across every sub-vertical: futures, forex, crypto and brokers.','Expanded the ranked footprint from 1,600 to 11,424 keywords.','Built evergreen frameworks with seasonal-intent refresh cycles.','Shipped hreflang for the US-Spanish audience, Trustpilot page SEO, and UTM tracking.'],
-          ba:[['Monthly organic visits','1K','45K'],['Ranked keywords','1,600','11,424'],['Keywords in top 3','—','388'],['Peak impressions /mo','—','1M+']],
-          business:{title:'Business impact — leads',stats:[['183','Peak leads / mo'],['129','Avg leads / mo'],['Organic','Lead source']],hint:'Documented leads from MDC reporting · final months on record (other analytics excluded).'},
-          chartTitle:'Organic visits over time — visits/mo (K)',
-          quote:'\u201CMost SEOs can build the architecture. Most finance writers can\u2019t do SEO. MDC moved because one person did both \u2014 and got the finance right.\u201D'},
+          situation:'They were shipping content on a steady cadence. Traffic stayed flat. The blog kept growing; the rankings didn\u2019t. Two problems were quietly canceling out every article they published, and they fed each other.',
+          problems:[{tag:'Problem 01 · E-E-A-T',h3:'The finance was wrong',p:'The previous SEO didn\u2019t understand finance. Articles on futures, forex, brokers and risk were shallow or simply incorrect. Trading is textbook YMYL, Your Money or Your Life, and Google will not rank money content it can\u2019t trust. No expertise, no E-E-A-T, no rankings. Traders bounce the moment they spot an error.'},
+                    {tag:'Problem 02 · Architecture',h3:'The SEO was never applied',p:'Publishing without a system: no keyword mapping, no cluster logic, no search-intent match, no internal linking. Volume without architecture doesn\u2019t compound, it just fills a CMS.'}],
+          solIntro:'Because I\u2019m a finance professional <em>and</em> an SEO, there was no hand-off and no second hire. I built genuine E-E-A-T into a YMYL niche while fixing the architecture, in the same pass:',
+          solList:['Rewrote and deepened every money page with real financial accuracy, the first-hand expertise (the first \u201CE\u201D in E-E-A-T) a YMYL niche demands.','Mapped keywords across every sub-vertical: futures, forex, crypto and brokers.','Expanded the ranked footprint from 1,600 to 11,424 keywords.','Built evergreen frameworks with seasonal-intent refresh cycles.','Shipped hreflang for the US-Spanish audience, Trustpilot page SEO, and UTM tracking.'],
+          ba:[['Monthly organic visits','1K','45K'],['Ranked keywords','1,600','11,424'],['Keywords in top 3','–','388'],['Peak impressions /mo','–','1M+']],
+          business:{title:'Business impact · leads',stats:[['183','Peak leads / mo'],['129','Avg leads / mo'],['Organic','Lead source']],hint:'Documented leads from MDC reporting · final months on record (other analytics excluded).'},
+          chartTitle:'Organic visits over time · visits/mo (K)',
+          quote:'\u201CMost SEOs can build the architecture. Most finance writers can\u2019t do SEO. MDC moved because one person did both, and got the finance right.\u201D'},
         tiu:{eyebrow:'Full case study · YMYL: Investing & Equities',h1:'The Investor U: from ~100 to 11K monthly organic sessions.',
-          lede:'A near-zero investing site in one of the most YMYL niches there is. No domain authority, no backlinks. It ranked fast for one reason: the content was genuinely expert \u2014 real E-E-A-T where most competitors fake it.',
+          lede:'A near-zero investing site in one of the most YMYL niches there is. No domain authority, no backlinks. It ranked fast for one reason: the content was genuinely expert, real E-E-A-T where most competitors fake it.',
           strip:[['100→11K','Organic sessions /mo'],['88%','Of all traffic'],['85.1K','GSC clicks · 16mo'],['5.36M','Impressions']],
           situation:'~100 monthly visits in a competitive equities-content market dominated by established finance brands. Almost no organic presence, no authority, and no budget to buy links.',
-          problems:[{tag:'Problem 01 — E-E-A-T',h3:'Investing content is pure YMYL',p:'Dividends, P/E ratios, portfolio strategy \u2014 this is money advice. Google holds it to the highest E-E-A-T bar, and readers won\u2019t trust a faceless blog with their savings. Generic, non-expert content simply does not rank here.'},
-                    {tag:'Problem 02 — No authority',h3:'A new site can\u2019t fight head-on',p:'With no backlink profile and no brand, going after high-authority head terms is a losing game. The site needed rankings before it had domain authority \u2014 a chicken-and-egg problem.'}],
-          solIntro:'I used my finance background to win the trust battle, and SEO strategy to win the authority battle \u2014 at the same time:',
-          solList:['Wrote investing content with real expertise (dividends, P/E ratio, Warren Buffett portfolio) \u2014 E-E-A-T strong enough to rank in a YMYL niche without authority.','Targeted low-competition, high-intent keywords that could rank fast on a young domain.','Built topical depth so early wins compounded into authority over time.','Made organic search 88% of all site traffic \u2014 a self-sustaining channel, not a paid drip.'],
-          ba:[['Monthly organic sessions','~100','11K+'],['Organic share of traffic','—','88%'],['GSC clicks (16 mo)','—','85.1K'],['Impressions (16 mo)','—','5.36M']],
-          chartTitle:'Organic sessions over time — sessions/mo (K)',
-          quote:'\u201CYou can\u2019t buy your way into a YMYL niche. The Investor U ranked because the content was actually expert \u2014 the trust came first, the authority followed.\u201D'},
-        pl:{eyebrow:'Full case study · Owned SEO lab',h1:'País Lector: from zero to a cited authority — no budget.',
-          lede:'My own SEO lab. Built from nothing against government-backed institutions, with zero budget and zero backlinks. It won on architecture and original-analysis E-E-A-T \u2014 and is now cited across AI search.',
+          problems:[{tag:'Problem 01 · E-E-A-T',h3:'Investing content is pure YMYL',p:'Dividends, P/E ratios, portfolio strategy, this is money advice. Google holds it to the highest E-E-A-T bar, and readers won\u2019t trust a faceless blog with their savings. Generic, non-expert content simply does not rank here.'},
+                    {tag:'Problem 02 · No authority',h3:'A new site can\u2019t fight head-on',p:'With no backlink profile and no brand, going after high-authority head terms is a losing game. The site needed rankings before it had domain authority, a chicken-and-egg problem.'}],
+          solIntro:'I used my finance background to win the trust battle, and SEO strategy to win the authority battle, at the same time:',
+          solList:['Wrote investing content with real expertise (dividends, P/E ratio, Warren Buffett portfolio), E-E-A-T strong enough to rank in a YMYL niche without authority.','Targeted low-competition, high-intent keywords that could rank fast on a young domain.','Built topical depth so early wins compounded into authority over time.','Made organic search 88% of all site traffic, a self-sustaining channel, not a paid drip.'],
+          ba:[['Monthly organic sessions','~100','11K+'],['Organic share of traffic','–','88%'],['GSC clicks (16 mo)','–','85.1K'],['Impressions (16 mo)','–','5.36M']],
+          chartTitle:'Organic sessions over time · sessions/mo (K)',
+          quote:'\u201CYou can\u2019t buy your way into a YMYL niche. The Investor U ranked because the content was actually expert, the trust came first, the authority followed.\u201D'},
+        pl:{eyebrow:'Full case study · Owned SEO lab',h1:'País Lector: from zero to a cited authority, no budget.',
+          lede:'My own SEO lab. Built from nothing against government-backed institutions, with zero budget and zero backlinks. It won on architecture and original-analysis E-E-A-T, and is now cited across AI search.',
           strip:[['0→5K','GSC clicks /mo'],['1.49M','Impressions · 16mo'],['8.6','Avg. position'],['63','Pages cited in AI']],
-          situation:'A literature brand starting at zero \u2014 no backlinks, no brand, no money \u2014 competing for the same queries as government-funded institutions and decades-old magazines with enormous authority.',
-          problems:[{tag:'Problem 01 — Authority gap',h3:'Out-ranking institutions with no backlinks',p:'When your competitors are government-backed sites, you can\u2019t win on domain authority. The only lever left is being genuinely more useful and more expert than they are \u2014 E-E-A-T over brute-force links.'},
-                    {tag:'Problem 02 — Commodity content',h3:'Poems are everywhere',p:'Copy-pasted poem pages exist by the thousand. Without original value, a new page is invisible \u2014 no trust signals, no reason for Google or a reader to choose it.'}],
-          solIntro:'I treated my own site as the proof-of-concept for everything I sell \u2014 architecture plus earned authority:',
-          solList:['Wrote original literary analysis on every page \u2014 first-hand expertise that manufactures real E-E-A-T where competitors just republish.','Built an emotion-based hub-and-spoke architecture; 784K+ aggregate volume in the \u201CAmor\u201D cluster alone.','JSON-LD structured data, internal-linking systems and topical depth that compounds.','Earned authority so durable the site is now cited across ChatGPT, AI Overviews and Gemini (63 pages).'],
-          ba:[['GSC clicks /mo','0','5K'],['Impressions (16 mo)','—','1.49M'],['Avg. position','—','8.6'],['Pages cited in AI search','—','63']],
-          chartTitle:'Organic clicks over time — GSC, last 16 mo (K)',
-          quote:'\u201CAuthority isn\u2019t bought with backlinks \u2014 it\u2019s earned with original expertise. País Lector out-ranks institutions because the content is genuinely better.\u201D'}
+          situation:'A literature brand starting at zero, no backlinks, no brand, no money, competing for the same queries as government-funded institutions and decades-old magazines with enormous authority.',
+          problems:[{tag:'Problem 01 · Authority gap',h3:'Out-ranking institutions with no backlinks',p:'When your competitors are government-backed sites, you can\u2019t win on domain authority. The only lever left is being genuinely more useful and more expert than they are, E-E-A-T over brute-force links.'},
+                    {tag:'Problem 02 · Commodity content',h3:'Poems are everywhere',p:'Copy-pasted poem pages exist by the thousand. Without original value, a new page is invisible, no trust signals, no reason for Google or a reader to choose it.'}],
+          solIntro:'I treated my own site as the proof-of-concept for everything I sell, architecture plus earned authority:',
+          solList:['Wrote original literary analysis on every page, first-hand expertise that manufactures real E-E-A-T where competitors just republish.','Built an emotion-based hub-and-spoke architecture; 784K+ aggregate volume in the \u201CAmor\u201D cluster alone.','JSON-LD structured data, internal-linking systems and topical depth that compounds.','Earned authority so durable the site is now cited across ChatGPT, AI Overviews and Gemini (63 pages).'],
+          ba:[['GSC clicks /mo','0','5K'],['Impressions (16 mo)','–','1.49M'],['Avg. position','–','8.6'],['Pages cited in AI search','–','63']],
+          chartTitle:'Organic clicks over time · GSC, last 16 mo (K)',
+          quote:'\u201CAuthority isn\u2019t bought with backlinks, it\u2019s earned with original expertise. País Lector out-ranks institutions because the content is genuinely better.\u201D'}
       }
     },
     es:{
       companies:{
         mdc:{name:'MDC Trading',role:'SEO Content Manager · trading y finanzas',color:'#3D6BFF',fav:'MDC',delta:'1K → 45K',barW:94,growth:'45× orgánico · 11.4K keywords',
-          chartTitle:'Visitas orgánicas en el tiempo — visitas/mes (K)',
+          chartTitle:'Visitas orgánicas en el tiempo · visitas/mes (K)',
           series:[{l:'M0',v:1},{l:'',v:5},{l:'',v:11},{l:'',v:18},{l:'',v:26},{l:'',v:34},{l:'',v:41},{l:'M18',v:45}],
           stats:[['45K','orgánico /mes'],['388','keywords en top 3'],['2,110','SERP features'],['11.4K','keywords posicionadas']],
-          wins:['Construí toda la arquitectura SEO casi desde cero — mapa de contenido, lógica de clusters, efecto compuesto.','Keyword mapping en futuros, forex, crypto y sub-verticales de brokers.','Expansión de clusters: 1,600 → 11,424 keywords posicionadas.','Generó hasta 183 leads de trading calificados al mes desde orgánico.','Ciclos de refresh evergreen por intención estacional, hreflang US-Spanish, SEO de Trustpilot, tracking UTM.']},
+          wins:['Construí toda la arquitectura SEO casi desde cero, mapa de contenido, lógica de clusters, efecto compuesto.','Keyword mapping en futuros, forex, crypto y sub-verticales de brokers.','Expansión de clusters: 1,600 → 11,424 keywords posicionadas.','Generó hasta 183 leads de trading calificados al mes desde orgánico.','Ciclos de refresh evergreen por intención estacional, hreflang US-Spanish, SEO de Trustpilot, tracking UTM.']},
         tiu:{name:'The Investor U',role:'Lead de SEO y contenido · acciones · ES',color:'#11B981',fav:'TIU',delta:'100 → 11K',barW:86,growth:'110× · 88% orgánico',
-          chartTitle:'Sesiones orgánicas en el tiempo — sesiones/mes (K)',
+          chartTitle:'Sesiones orgánicas en el tiempo · sesiones/mes (K)',
           series:[{l:'M0',v:0.1},{l:'',v:0.8},{l:'',v:2},{l:'',v:3.8},{l:'',v:5.8},{l:'',v:7.8},{l:'',v:9.6},{l:'M16',v:11}],
           stats:[['11K+','orgánico /mes'],['88%','del tráfico total'],['85.1K','clicks GSC · 16m'],['5.36M','impresiones']],
           wins:['Llevé el orgánico de ~100 a 11K+ sesiones mensuales en un mercado de acciones competido.','Targeting de keywords de baja competencia (dividends, P/E ratio, portafolio de Warren Buffett) para rankear rápido sin autoridad.','Hice que el orgánico fuera el 88% de todo el tráfico del sitio.','85.1K clicks en Search Console y 5.36M impresiones en 16 meses.']},
         pl:{name:'País Lector',role:'Fundador · mi laboratorio SEO · ES',color:'#FF5A3C',fav:'PL',delta:'0 → 5K',barW:62,growth:'desde cero · sin presupuesto',
-          chartTitle:'Clicks orgánicos en el tiempo — GSC, últimos 16m (K)',
+          chartTitle:'Clicks orgánicos en el tiempo · GSC, últimos 16m (K)',
           series:[{l:'2/25',v:0.4},{l:'',v:1.2},{l:'',v:2.1},{l:'',v:2.8},{l:'',v:3.4},{l:'',v:4.4},{l:'2/26',v:5.2},{l:'',v:4.3},{l:'6/26',v:3.6}],
           stats:[['39.5K','clicks GSC · 16m'],['1.49M','impresiones'],['8.6','posición prom.'],['1.5K','keywords orgánicas']],
-          wins:['Construido desde cero — sin presupuesto, sin backlinks — contra instituciones con respaldo gubernamental y revistas.','Arquitectura hub-and-spoke basada en emociones; 784K+ de volumen agregado solo en el cluster “Amor”.','Datos estructurados JSON-LD, sistemas de enlazado interno, E-E-A-T vía análisis original.','Hoy citado en la búsqueda con IA — ChatGPT, AI Overviews y Gemini (63 páginas indexadas).']}
+          wins:['Construido desde cero, sin presupuesto, sin backlinks, contra instituciones con respaldo gubernamental y revistas.','Arquitectura hub-and-spoke basada en emociones; 784K+ de volumen agregado solo en el cluster “Amor”.','Datos estructurados JSON-LD, sistemas de enlazado interno, E-E-A-T vía análisis original.','Hoy citado en la búsqueda con IA, ChatGPT, AI Overviews y Gemini (63 páginas indexadas).']}
       },
       deep:{
         mdc:{eyebrow:'Caso de estudio · YMYL: Trading y Finanzas',h1:'MDC Trading: de 1K a 45K visitas orgánicas mensuales.',
-          lede:'Una plataforma de trading que publicaba sin parar y rankeaba para casi nada. Las finanzas estaban mal y el SEO nunca se aplicó — fatal en un nicho YMYL donde Google premia la expertise demostrable. Arreglé ambos en una sola pasada.',
+          lede:'Una plataforma de trading que publicaba sin parar y rankeaba para casi nada. Las finanzas estaban mal y el SEO nunca se aplicó, fatal en un nicho YMYL donde Google premia la expertise demostrable. Arreglé ambos en una sola pasada.',
           strip:[['1K→45K','Visitas orgánicas /mes'],['+614%','Keywords (1.6K→11.4K)'],['388','Keywords en top 3'],['1M+','Impresiones /mes pico']],
-          situation:'Publicaban contenido en una cadencia constante. El tráfico seguía plano. El blog crecía; los rankings no. Dos problemas anulaban en silencio cada artículo que publicaban \u2014 y se alimentaban mutuamente.',
-          problems:[{tag:'Problema 01 — E-E-A-T',h3:'Las finanzas estaban mal',p:'El SEO anterior no entendía finanzas. Los artículos sobre futuros, forex, brokers y riesgo eran superficiales o simplemente incorrectos. El trading es YMYL de manual \u2014 Your Money or Your Life \u2014 y Google no rankea contenido de dinero en el que no puede confiar. Sin expertise, no hay E-E-A-T, no hay rankings. Y el trader se va en cuanto detecta un error.'},
-                    {tag:'Problema 02 — Arquitectura',h3:'El SEO nunca se aplicó',p:'Publicar sin sistema: sin keyword mapping, sin lógica de clusters, sin match de intención, sin enlazado interno. El volumen sin arquitectura no compone \u2014 solo llena un CMS.'}],
-          solIntro:'Como soy profesional de finanzas <em>y</em> SEO, no hubo hand-off ni un segundo hire. Construí E-E-A-T genuino en un nicho YMYL mientras arreglaba la arquitectura \u2014 en la misma pasada:',
-          solList:['Reescribí y profundicé cada página de dinero con precisión financiera real \u2014 la expertise de primera mano (la primera \u201CE\u201D de E-E-A-T) que exige un nicho YMYL.','Mapeé keywords en cada sub-vertical: futuros, forex, crypto y brokers.','Expandí la huella posicionada de 1,600 a 11,424 keywords.','Construí frameworks evergreen con ciclos de refresh por intención estacional.','Implementé hreflang para la audiencia US-Spanish, SEO de la página de Trustpilot y tracking UTM.'],
-          ba:[['Visitas orgánicas /mes','1K','45K'],['Keywords posicionadas','1,600','11,424'],['Keywords en top 3','—','388'],['Impresiones /mes pico','—','1M+']],
-          business:{title:'Impacto de negocio — leads',stats:[['183','Leads / mes pico'],['129','Leads / mes prom.'],['Orgánico','Fuente de leads']],hint:'Leads documentados del reporte de MDC · últimos meses registrados (otras analíticas excluidas).'},
-          chartTitle:'Visitas orgánicas en el tiempo — visitas/mes (K)',
-          quote:'\u201CCasi cualquier SEO puede armar la arquitectura. Casi ningún redactor de finanzas sabe hacer SEO. MDC se movió porque una sola persona hizo ambas \u2014 y entendió las finanzas.\u201D'},
+          situation:'Publicaban contenido en una cadencia constante. El tráfico seguía plano. El blog crecía; los rankings no. Dos problemas anulaban en silencio cada artículo que publicaban, y se alimentaban mutuamente.',
+          problems:[{tag:'Problema 01 · E-E-A-T',h3:'Las finanzas estaban mal',p:'El SEO anterior no entendía finanzas. Los artículos sobre futuros, forex, brokers y riesgo eran superficiales o simplemente incorrectos. El trading es YMYL de manual, Your Money or Your Life, y Google no rankea contenido de dinero en el que no puede confiar. Sin expertise, no hay E-E-A-T, no hay rankings. Y el trader se va en cuanto detecta un error.'},
+                    {tag:'Problema 02 · Arquitectura',h3:'El SEO nunca se aplicó',p:'Publicar sin sistema: sin keyword mapping, sin lógica de clusters, sin match de intención, sin enlazado interno. El volumen sin arquitectura no compone, solo llena un CMS.'}],
+          solIntro:'Como soy profesional de finanzas <em>y</em> SEO, no hubo hand-off ni un segundo hire. Construí E-E-A-T genuino en un nicho YMYL mientras arreglaba la arquitectura, en la misma pasada:',
+          solList:['Reescribí y profundicé cada página de dinero con precisión financiera real, la expertise de primera mano (la primera \u201CE\u201D de E-E-A-T) que exige un nicho YMYL.','Mapeé keywords en cada sub-vertical: futuros, forex, crypto y brokers.','Expandí la huella posicionada de 1,600 a 11,424 keywords.','Construí frameworks evergreen con ciclos de refresh por intención estacional.','Implementé hreflang para la audiencia US-Spanish, SEO de la página de Trustpilot y tracking UTM.'],
+          ba:[['Visitas orgánicas /mes','1K','45K'],['Keywords posicionadas','1,600','11,424'],['Keywords en top 3','–','388'],['Impresiones /mes pico','–','1M+']],
+          business:{title:'Impacto de negocio · leads',stats:[['183','Leads / mes pico'],['129','Leads / mes prom.'],['Orgánico','Fuente de leads']],hint:'Leads documentados del reporte de MDC · últimos meses registrados (otras analíticas excluidas).'},
+          chartTitle:'Visitas orgánicas en el tiempo · visitas/mes (K)',
+          quote:'\u201CCasi cualquier SEO puede armar la arquitectura. Casi ningún redactor de finanzas sabe hacer SEO. MDC se movió porque una sola persona hizo ambas, y entendió las finanzas.\u201D'},
         tiu:{eyebrow:'Caso de estudio · YMYL: Inversión y Acciones',h1:'The Investor U: de ~100 a 11K sesiones orgánicas mensuales.',
-          lede:'Un sitio de inversión casi en cero, en uno de los nichos más YMYL que existen. Sin autoridad de dominio, sin backlinks. Rankeó rápido por una razón: el contenido era genuinamente experto \u2014 E-E-A-T real donde casi todos lo fingen.',
+          lede:'Un sitio de inversión casi en cero, en uno de los nichos más YMYL que existen. Sin autoridad de dominio, sin backlinks. Rankeó rápido por una razón: el contenido era genuinamente experto, E-E-A-T real donde casi todos lo fingen.',
           strip:[['100→11K','Sesiones orgánicas /mes'],['88%','Del tráfico total'],['85.1K','Clicks GSC · 16m'],['5.36M','Impresiones']],
           situation:'~100 visitas mensuales en un mercado de contenido de acciones dominado por marcas financieras establecidas. Casi sin presencia orgánica, sin autoridad y sin presupuesto para comprar links.',
-          problems:[{tag:'Problema 01 — E-E-A-T',h3:'El contenido de inversión es puro YMYL',p:'Dividendos, ratios P/E, estrategia de portafolio \u2014 esto es consejo de dinero. Google lo somete a la vara más alta de E-E-A-T, y el lector no le confía sus ahorros a un blog sin rostro. El contenido genérico y no experto simplemente no rankea aquí.'},
-                    {tag:'Problema 02 — Sin autoridad',h3:'Un sitio nuevo no puede pelear de frente',p:'Sin perfil de backlinks y sin marca, ir por los head terms de alta autoridad es perder. El sitio necesitaba rankings antes de tener autoridad de dominio \u2014 el problema del huevo y la gallina.'}],
-          solIntro:'Usé mi formación financiera para ganar la batalla de la confianza, y la estrategia SEO para ganar la de la autoridad \u2014 al mismo tiempo:',
-          solList:['Escribí contenido de inversión con expertise real (dividends, P/E ratio, portafolio de Warren Buffett) \u2014 E-E-A-T suficiente para rankear en un nicho YMYL sin autoridad.','Targeting de keywords de baja competencia y alta intención que podían rankear rápido en un dominio joven.','Construí profundidad temática para que las victorias tempranas compusieran autoridad con el tiempo.','Hice que el orgánico fuera el 88% del tráfico \u2014 un canal autosostenible, no un goteo pagado.'],
-          ba:[['Sesiones orgánicas /mes','~100','11K+'],['% orgánico del tráfico','—','88%'],['Clicks GSC (16 m)','—','85.1K'],['Impresiones (16 m)','—','5.36M']],
-          chartTitle:'Sesiones orgánicas en el tiempo — sesiones/mes (K)',
-          quote:'\u201CNo puedes comprar tu entrada a un nicho YMYL. The Investor U rankeó porque el contenido era de verdad experto \u2014 primero llegó la confianza, después la autoridad.\u201D'},
-        pl:{eyebrow:'Caso de estudio · Mi laboratorio SEO',h1:'País Lector: de cero a una autoridad citada — sin presupuesto.',
-          lede:'Mi propio laboratorio SEO. Construido desde nada contra instituciones con respaldo gubernamental, con cero presupuesto y cero backlinks. Ganó por arquitectura y E-E-A-T de análisis original \u2014 y hoy lo cita la búsqueda con IA.',
+          problems:[{tag:'Problema 01 · E-E-A-T',h3:'El contenido de inversión es puro YMYL',p:'Dividendos, ratios P/E, estrategia de portafolio, esto es consejo de dinero. Google lo somete a la vara más alta de E-E-A-T, y el lector no le confía sus ahorros a un blog sin rostro. El contenido genérico y no experto simplemente no rankea aquí.'},
+                    {tag:'Problema 02 · Sin autoridad',h3:'Un sitio nuevo no puede pelear de frente',p:'Sin perfil de backlinks y sin marca, ir por los head terms de alta autoridad es perder. El sitio necesitaba rankings antes de tener autoridad de dominio, el problema del huevo y la gallina.'}],
+          solIntro:'Usé mi formación financiera para ganar la batalla de la confianza, y la estrategia SEO para ganar la de la autoridad, al mismo tiempo:',
+          solList:['Escribí contenido de inversión con expertise real (dividends, P/E ratio, portafolio de Warren Buffett), E-E-A-T suficiente para rankear en un nicho YMYL sin autoridad.','Targeting de keywords de baja competencia y alta intención que podían rankear rápido en un dominio joven.','Construí profundidad temática para que las victorias tempranas compusieran autoridad con el tiempo.','Hice que el orgánico fuera el 88% del tráfico, un canal autosostenible, no un goteo pagado.'],
+          ba:[['Sesiones orgánicas /mes','~100','11K+'],['% orgánico del tráfico','–','88%'],['Clicks GSC (16 m)','–','85.1K'],['Impresiones (16 m)','–','5.36M']],
+          chartTitle:'Sesiones orgánicas en el tiempo · sesiones/mes (K)',
+          quote:'\u201CNo puedes comprar tu entrada a un nicho YMYL. The Investor U rankeó porque el contenido era de verdad experto, primero llegó la confianza, después la autoridad.\u201D'},
+        pl:{eyebrow:'Caso de estudio · Mi laboratorio SEO',h1:'País Lector: de cero a una autoridad citada, sin presupuesto.',
+          lede:'Mi propio laboratorio SEO. Construido desde nada contra instituciones con respaldo gubernamental, con cero presupuesto y cero backlinks. Ganó por arquitectura y E-E-A-T de análisis original, y hoy lo cita la búsqueda con IA.',
           strip:[['0→5K','Clicks GSC /mes'],['1.49M','Impresiones · 16m'],['8.6','Posición prom.'],['63','Páginas citadas en IA']],
-          situation:'Una marca de literatura empezando en cero \u2014 sin backlinks, sin marca, sin dinero \u2014 compitiendo por las mismas queries que instituciones financiadas por el gobierno y revistas con décadas de autoridad.',
-          problems:[{tag:'Problema 01 — Brecha de autoridad',h3:'Superar a instituciones sin backlinks',p:'Cuando tus competidores son sitios con respaldo gubernamental, no ganas por autoridad de dominio. La única palanca que queda es ser genuinamente más útil y más experto que ellos \u2014 E-E-A-T por encima de la fuerza bruta de los links.'},
-                    {tag:'Problema 02 — Contenido commodity',h3:'Los poemas están en todas partes',p:'Las páginas de poemas copy-paste existen por miles. Sin valor original, una página nueva es invisible \u2014 sin señales de confianza, sin razón para que Google o un lector la elijan.'}],
-          solIntro:'Traté mi propio sitio como la prueba de concepto de todo lo que vendo \u2014 arquitectura más autoridad ganada:',
-          solList:['Escribí análisis literario original en cada página \u2014 expertise de primera mano que fabrica E-E-A-T real donde los demás solo republican.','Construí una arquitectura hub-and-spoke basada en emociones; 784K+ de volumen agregado solo en el cluster \u201CAmor\u201D.','Datos estructurados JSON-LD, sistemas de enlazado interno y profundidad temática que compone.','Gané una autoridad tan durable que hoy el sitio es citado en ChatGPT, AI Overviews y Gemini (63 páginas).'],
-          ba:[['Clicks GSC /mes','0','5K'],['Impresiones (16 m)','—','1.49M'],['Posición prom.','—','8.6'],['Páginas citadas en IA','—','63']],
-          chartTitle:'Clicks orgánicos en el tiempo — GSC, últimos 16m (K)',
-          quote:'\u201CLa autoridad no se compra con backlinks \u2014 se gana con expertise original. País Lector supera a instituciones porque el contenido es genuinamente mejor.\u201D'}
+          situation:'Una marca de literatura empezando en cero, sin backlinks, sin marca, sin dinero, compitiendo por las mismas queries que instituciones financiadas por el gobierno y revistas con décadas de autoridad.',
+          problems:[{tag:'Problema 01 · Brecha de autoridad',h3:'Superar a instituciones sin backlinks',p:'Cuando tus competidores son sitios con respaldo gubernamental, no ganas por autoridad de dominio. La única palanca que queda es ser genuinamente más útil y más experto que ellos, E-E-A-T por encima de la fuerza bruta de los links.'},
+                    {tag:'Problema 02 · Contenido commodity',h3:'Los poemas están en todas partes',p:'Las páginas de poemas copy-paste existen por miles. Sin valor original, una página nueva es invisible, sin señales de confianza, sin razón para que Google o un lector la elijan.'}],
+          solIntro:'Traté mi propio sitio como la prueba de concepto de todo lo que vendo, arquitectura más autoridad ganada:',
+          solList:['Escribí análisis literario original en cada página, expertise de primera mano que fabrica E-E-A-T real donde los demás solo republican.','Construí una arquitectura hub-and-spoke basada en emociones; 784K+ de volumen agregado solo en el cluster \u201CAmor\u201D.','Datos estructurados JSON-LD, sistemas de enlazado interno y profundidad temática que compone.','Gané una autoridad tan durable que hoy el sitio es citado en ChatGPT, AI Overviews y Gemini (63 páginas).'],
+          ba:[['Clicks GSC /mes','0','5K'],['Impresiones (16 m)','–','1.49M'],['Posición prom.','–','8.6'],['Páginas citadas en IA','–','63']],
+          chartTitle:'Clicks orgánicos en el tiempo · GSC, últimos 16m (K)',
+          quote:'\u201CLa autoridad no se compra con backlinks, se gana con expertise original. País Lector supera a instituciones porque el contenido es genuinamente mejor.\u201D'}
       }
     }
   };
@@ -761,7 +782,7 @@
     const body=document.getElementById('kwBody');
     body.innerHTML = ROWS.map(r=>{
       const serpHtml = r.sc==='none'
-        ? '<span class="serpfeat none">—</span>'
+        ? '<span class="serpfeat none">–</span>'
         : '<span class="serpfeat '+r.sc+'">'+r.serp[LANG]+'</span>';
       const caps = r.caps[LANG].map(c=>'<span class="cap-chip">'+c+'</span>').join('');
       return '<tr class="kw-row" tabindex="0" role="button" aria-expanded="false">'+
@@ -851,7 +872,7 @@
       '<div class="dd-strip">'+strip+'</div>'+
       '<div class="dd-section"><h2><span class="n">01</span> '+(LANG==='es'?'La situación':'The situation')+'</h2><p>'+d.situation+'</p></div>'+
       '<div class="dd-section"><h2><span class="n">02</span> '+(LANG==='es'?'Dos problemas, no uno':'Two problems, not one')+'</h2><div class="dd-problems">'+probs+'</div></div>'+
-      '<div class="dd-section"><h2><span class="n">03</span> '+(LANG==='es'?'Una persona, ambos problemas':'One person, both problems')+'</h2><div class="dd-sol"><div class="tag">'+(LANG==='es'?'Lo que hice':'What I did')+'</div><p style="font-size:15px;color:#2C3A34;line-height:1.55;margin-bottom:2px">'+d.solIntro+'</p><ul>'+sol+'</ul></div></div>'+
+      '<div class="dd-section"><h2><span class="n">03</span> '+(LANG==='es'?'Una persona, ambos problemas':'One person, both problems')+'</h2><div class="dd-sol"><div class="tag">'+(LANG==='es'?'Lo que hice':'What I did')+'</div><p class="dd-sol-intro">'+d.solIntro+'</p><ul>'+sol+'</ul></div></div>'+
       '<div class="dd-section"><h2><span class="n">'+resultN+'</span> '+(LANG==='es'?'Lo que se movió':'What moved')+'</h2><div class="dd-ba">'+ba+'</div>'+
         '<div class="dd-chartwrap"><div class="m-charttitle">'+d.chartTitle+'</div><div id="dd-chart"></div></div></div>'+
       bizHtml+
@@ -879,7 +900,7 @@
     function build(filter){
       const f=(filter||'').trim().toLowerCase(); const c=comp();
       const keys=order.filter(k=>{ if(!f) return true; const x=c[k]; return (x.name+' '+x.role+' '+k).toLowerCase().includes(f); });
-      if(!keys.length){ list.innerHTML='<div class="sdd-empty">'+(LANG==='es'?'Sin coincidencias — prueba MDC, Investor o País.':'No match — try MDC, Investor or País.')+'</div>'; return; }
+      if(!keys.length){ list.innerHTML='<div class="sdd-empty">'+(LANG==='es'?'Sin coincidencias, prueba MDC, Investor o País.':'No match, try MDC, Investor or País.')+'</div>'; return; }
       list.innerHTML=keys.map((k,i)=>{ const x=c[k];
         return '<button class="sdd-item'+(i===0?' active':'')+'" data-company="'+k+'"><span class="sdd-fav" style="background:'+x.color+'">'+x.fav+'</span><span class="sdd-text"><span class="sdd-name">'+x.name+'</span><span class="sdd-sub">'+x.role+'</span></span><span class="sdd-delta" style="color:'+x.color+'">'+x.delta+'</span></button>';
       }).join('');
@@ -927,6 +948,45 @@
     if(!deepdive.hidden){ if(currentDeep) openDeepdive(currentDeep); else closeDeepdive(); }
   }
   document.querySelectorAll('.langbtn').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+
+  /* ===== left rail: navigation + scroll-spy + theme ===== */
+  (function(){
+    const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const items=[...document.querySelectorAll('.rail-item[data-target]')];
+    function go(id){ const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}); }
+    items.forEach(it=>{
+      it.addEventListener('click',()=>go(it.dataset.target));
+      it.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();go(it.dataset.target);} });
+    });
+    const logo=document.getElementById('railLogo');
+    function top(){ window.scrollTo({top:0,behavior:reduce?'auto':'smooth'}); }
+    logo.addEventListener('click',top);
+    logo.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();top();} });
+
+    const ids=['overview','keywords','cases','positions','contact'];
+    const secs=ids.map(id=>document.getElementById(id)).filter(Boolean);
+    function setActive(id){ items.forEach(it=>it.classList.toggle('active',it.dataset.target===id)); }
+    if('IntersectionObserver' in window){
+      const io=new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting) setActive(e.target.id); }); },{rootMargin:'-45% 0px -50% 0px',threshold:0});
+      secs.forEach(s=>io.observe(s));
+    }
+
+    const tb=document.getElementById('themeBtn');
+    function applyTheme(dark){
+      document.body.classList.toggle('dark',dark);
+      tb.classList.toggle('themeon',dark);
+      tb.textContent=dark?'☀':'🌙';
+      tb.title=dark?'Switch to light mode':'Toggle dark mode';
+      try{ localStorage.setItem('overrank-theme',dark?'dark':'light'); }catch(e){}
+    }
+    let initDark=false;
+    try{ const s=localStorage.getItem('overrank-theme'); initDark = s ? s==='dark' : (window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches); }
+    catch(e){ initDark = window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches; }
+    applyTheme(initDark);
+    function toggle(){ applyTheme(!document.body.classList.contains('dark')); }
+    tb.addEventListener('click',toggle);
+    tb.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();} });
+  })();
 
   /* ============ init ============ */
   applyLang('en');
