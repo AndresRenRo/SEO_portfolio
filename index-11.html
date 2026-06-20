@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SERPiente · Domain Analysis — andresrendon.com</title>
+<meta name="description" content="Andrés Rendón — bilingual SEO & content strategist. Finance pro, ex-KPMG. E-E-A-T for YMYL niches. Portfolio as an SEO platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#EEF1F5;--surface:#FFFFFF;--rail:#13151C;--rail-soft:#1C1F29;
+    --ink:#13151C;--muted:#6B7280;--line:#E3E7ED;
+    --coral:#FF5A3C;--coral-dim:#FFEAE5;--green:#11B981;--green-dim:#D8F5E9;
+    --amber:#F5A623;--amber-dim:#FDF0D6;--cobalt:#3D6BFF;--cobalt-dim:#E4EBFF;
+    --radius:14px;--shadow-sm:0 1px 2px rgba(19,21,28,.05);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--canvas);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;display:flex;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+
+  .rail{width:72px;background:var(--rail);color:#fff;display:flex;flex-direction:column;align-items:center;padding:18px 0;gap:6px;position:sticky;top:0;height:100vh;flex-shrink:0;z-index:40}
+  .rail-logo{width:40px;height:40px;border-radius:11px;background:var(--coral);display:grid;place-items:center;margin-bottom:14px;font-size:22px;box-shadow:0 6px 16px -6px var(--coral)}
+  .rail-item{width:46px;height:46px;border-radius:11px;display:grid;place-items:center;color:#7F8596;transition:.18s;cursor:pointer;font-size:18px}
+  .rail-item:hover{background:var(--rail-soft);color:#fff}
+  .rail-item.active{background:var(--coral);color:#fff}
+  .rail-spacer{flex:1}
+
+  .main{flex:1;min-width:0;display:flex;flex-direction:column}
+  .topbar{background:var(--surface);border-bottom:1px solid var(--line);padding:14px 28px;display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:30}
+  .wordmark{font-family:'Archivo',sans-serif;font-weight:900;font-size:19px;letter-spacing:-.02em;display:flex;align-items:center;gap:7px;flex-shrink:0}
+  .wordmark .dot{color:var(--coral)}
+  .wordmark .tag{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;background:var(--coral-dim);color:var(--coral);padding:2px 6px;border-radius:5px;letter-spacing:.04em;text-transform:uppercase}
+  .searchbar{width:100%;display:flex;align-items:center;gap:10px;background:var(--canvas);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:14px}
+  .search-wrap{position:relative;flex:1;max-width:520px}
+  .searchbar svg{flex-shrink:0;color:var(--muted)}
+  .searchbar input{border:0;background:transparent;outline:0;font-family:'Space Mono',monospace;font-size:13px;color:var(--ink);width:100%}
+  .searchbar .kbd{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:2px 6px;background:#fff;flex-shrink:0}
+  .search-dd{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--surface);border:1px solid var(--line);border-radius:13px;box-shadow:0 20px 44px -16px rgba(19,21,28,.28);padding:7px;z-index:60;animation:pop .16s ease}
+  .search-dd[hidden]{display:none}
+  .sdd-label{font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:7px 9px 8px}
+  .sdd-item{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:transparent;border:0;padding:10px;border-radius:9px;cursor:pointer;transition:background .12s}
+  .sdd-item:hover,.sdd-item.active{background:var(--canvas)}
+  .sdd-fav{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-family:'Archivo';font-weight:800;color:#fff;font-size:12px;flex-shrink:0}
+  .sdd-text{min-width:0;flex:1}
+  .sdd-name{font-weight:600;font-size:13px;display:block}
+  .sdd-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);display:block;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sdd-delta{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0}
+  .sdd-empty{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);padding:10px}
+  .topbar-actions{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
+  .langtoggle{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .langbtn{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;padding:5px 9px;background:#fff;border:0;cursor:pointer;color:var(--muted);display:flex;align-items:center;gap:4px;transition:.15s}
+  .langbtn.active{background:var(--ink);color:#fff}
+  .kbdpill{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:4px 7px}
+  .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--coral),#FF8A6E);display:grid;place-items:center;font-family:'Archivo';font-weight:800;color:#fff;font-size:13px}
+  .content{padding:28px;max-width:1240px;width:100%;margin:0 auto}
+
+  .domain-head{display:flex;align-items:center;gap:18px;margin-bottom:20px;flex-wrap:wrap}
+  .favicon{width:60px;height:60px;border-radius:15px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:'Anton';font-size:26px;flex-shrink:0}
+  .domain-meta h1{font-family:'Archivo';font-weight:900;font-size:26px;letter-spacing:-.02em;line-height:1.1}
+  .domain-meta .url{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted);margin-top:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .verified{display:inline-flex;align-items:center;gap:4px;color:var(--green);font-weight:700;font-size:11px;font-family:'Inter'}
+  .li-link{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--cobalt)}
+  .li-link:hover{text-decoration:underline}
+  .domain-tags{display:flex;gap:7px;margin-left:auto;flex-wrap:wrap}
+  .pill{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;padding:5px 11px;border-radius:20px;white-space:nowrap}
+  .pill.coral{background:var(--coral-dim);color:var(--coral)}
+  .pill.green{background:var(--green-dim);color:var(--green)}
+  .pill.dark{background:var(--ink);color:#fff}
+  .pill.line{background:transparent;border:1px solid var(--line);color:var(--muted)}
+  .pill.gold{background:var(--amber-dim);color:#9A6B00}
+
+  .strip-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+  .strip-label{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .chip-soft{font-size:12px;font-weight:600;color:#374151;background:var(--surface);border:1px solid var(--line);padding:5px 12px;border-radius:20px;display:inline-flex;align-items:center;gap:6px}
+  .chip-soft .ck{color:var(--green);font-weight:700}
+  .strip-certs{margin-bottom:24px}
+
+  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+  .kpi{padding:18px 20px}
+  .kpi .label{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:10px}
+  .kpi .num{font-family:'Anton';font-size:42px;line-height:1;letter-spacing:-.01em}
+  .kpi .num small{font-size:18px;color:var(--muted);font-family:'Archivo';font-weight:700}
+  .kpi .delta{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;margin-top:9px;display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:6px}
+  .delta.up{background:var(--green-dim);color:var(--green)}
+  .delta.flat{background:var(--amber-dim);color:var(--amber)}
+
+  .row{display:grid;grid-template-columns:1.7fr 1fr;gap:16px;margin-bottom:16px}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:20px 22px}
+  .panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:10px;flex-wrap:wrap}
+  .panel-head h2{font-family:'Archivo';font-weight:800;font-size:15px;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+  .panel-head .sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted)}
+  .legend{display:flex;gap:14px;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted)}
+  .legend i{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:middle}
+
+  .chart-svg{width:100%;height:230px;display:block;overflow:visible}
+  .trend-line{fill:none;stroke:var(--coral);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 1.8s cubic-bezier(.5,0,.1,1) .3s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .xlabel{font-family:'Space Mono',monospace;font-size:10px;fill:var(--muted)}
+  .ygrid{stroke:var(--line);stroke-width:1}
+  .dot-pt{fill:#fff;stroke:var(--coral);stroke-width:2.5}
+
+  .gauge-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
+  .gauge-svg{width:190px;height:120px}
+  .gauge-arc-bg{fill:none;stroke:var(--line);stroke-width:14;stroke-linecap:round}
+  .gauge-arc{fill:none;stroke:url(#gaugeGrad);stroke-width:14;stroke-linecap:round;stroke-dasharray:251;stroke-dashoffset:251;animation:fillgauge 1.6s cubic-bezier(.5,0,.1,1) .5s forwards}
+  @keyframes fillgauge{to{stroke-dashoffset:55}}
+  .gauge-score{font-family:'Anton';font-size:46px;line-height:1;text-align:center;margin-top:-34px}
+  .gauge-cap{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-align:center;text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+  .gauge-note{font-size:12px;color:var(--muted);text-align:center;margin-top:14px;max-width:210px;line-height:1.45}
+
+  .table-scroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+  thead th{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:left;padding:0 14px 12px;font-weight:700;border-bottom:1px solid var(--line)}
+  thead th.r,tbody td.r{text-align:right}
+  tbody td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+  tbody tr.kw-detail:last-child td{border-bottom:0}
+  .kw{font-weight:600}
+  .kw small{display:block;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);font-weight:400;margin-top:2px}
+  .val{font-family:'Space Mono',monospace;font-weight:700}
+  .pos{font-family:'Archivo';font-weight:800;display:inline-grid;place-items:center;width:30px;height:26px;border-radius:7px;font-size:13px}
+  .pos.p1{background:var(--green-dim);color:var(--green)}
+  .pos.p2,.pos.p3{background:var(--amber-dim);color:var(--amber)}
+  .kd{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+  .kd-bar{width:46px;height:6px;border-radius:3px;background:var(--line);overflow:hidden;position:relative}
+  .kd-fill{height:100%;border-radius:3px}
+  .kd-num{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;width:24px;text-align:right}
+  .serpfeat{font-family:'Space Mono',monospace;font-size:10px;color:var(--cobalt);background:#EAF0FF;padding:3px 7px;border-radius:5px;white-space:nowrap}
+  .serpfeat.ai{color:#7C3AED;background:#F1EAFE}
+  .serpfeat.gold{color:#9A6B00;background:var(--amber-dim)}
+  .serpfeat.none{color:var(--muted);background:var(--canvas)}
+  .kw-row{cursor:pointer}
+  .kw-row:hover{background:#FAFBFC}
+  .caret{display:inline-block;width:14px;color:var(--muted);font-size:10px;transition:transform .2s;margin-right:2px}
+  .kw-row.open .caret{transform:rotate(90deg);color:var(--coral)}
+  .kw-row.open .kw{color:var(--coral)}
+  .kw-detail{display:none}
+  .kw-detail.open{display:table-row}
+  .kw-detail td{padding:2px 14px 16px 30px;background:#FBFCFD;border-bottom:1px solid var(--line)}
+  .cap-label{font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:8px}
+  .cap-chips{display:flex;flex-wrap:wrap;gap:7px}
+  .cap-chip{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;background:var(--surface);color:#374151;border:1px solid var(--line);padding:5px 10px;border-radius:7px}
+
+  .row2{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin-bottom:16px}
+  .cs-item{padding:15px 14px;margin:0 -14px;border-radius:11px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .15s}
+  .cs-item:first-child{padding-top:2px}
+  .cs-item:last-child{border-bottom:0}
+  .cs-item:hover{background:#FAFBFC}
+  .cs-item:hover .cs-name{color:var(--coral)}
+  .cs-item:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+  .cs-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px}
+  .cs-name{font-weight:700;font-size:14px;transition:color .15s}
+  .cs-name small{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);font-weight:400;margin-left:6px}
+  .cs-delta{font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:var(--green);white-space:nowrap}
+  .cs-track{height:10px;border-radius:6px;background:var(--canvas);overflow:hidden;margin-top:8px}
+  .cs-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--amber),var(--coral));width:var(--w);animation:grow 1.5s cubic-bezier(.5,0,.1,1) .3s backwards}
+  @keyframes grow{from{width:0}}
+  .cs-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:7px;gap:8px}
+  .cs-growth{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--coral)}
+  .cs-view{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--muted);opacity:.5;transition:.15s}
+  .cs-item:hover .cs-view{opacity:1;color:var(--coral)}
+  .cs-foot{font-size:12px;color:var(--muted);line-height:1.5;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+  .cs-foot b{color:var(--ink)}
+
+  .dist-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .dist-label{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;width:54px;flex-shrink:0;color:var(--muted)}
+  .dist-track{flex:1;height:20px;border-radius:6px;background:var(--canvas);overflow:hidden}
+  .dist-fill{height:100%;border-radius:6px;width:var(--w);animation:grow 1.4s cubic-bezier(.5,0,.1,1) .3s backwards}
+  .dist-num{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;width:40px;text-align:right;flex-shrink:0}
+  .feat-title{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:18px 0 11px;border-top:1px solid var(--line);padding-top:16px}
+  .feat-chips{display:flex;flex-wrap:wrap;gap:8px}
+  .feat-chip{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;padding:6px 11px;border-radius:8px;background:var(--canvas);display:flex;align-items:center;gap:7px}
+  .feat-chip b{font-family:'Archivo';font-size:13px}
+
+  .modal-overlay{position:fixed;inset:0;background:rgba(19,21,28,.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100;animation:fade .2s}
+  .modal-overlay[hidden]{display:none}
+  @keyframes fade{from{opacity:0}}
+  .modal{background:var(--surface);border-radius:18px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;padding:26px 28px;position:relative;box-shadow:0 30px 80px -20px rgba(0,0,0,.45);animation:pop .25s cubic-bezier(.2,.8,.3,1)}
+  @keyframes pop{from{transform:translateY(14px) scale(.985);opacity:0}}
+  .modal-close{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:13px;color:var(--muted);display:grid;place-items:center;transition:.15s}
+  .modal-close:hover{background:var(--canvas);color:var(--ink)}
+  .modal-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-right:42px;flex-wrap:wrap}
+  .m-fav{width:46px;height:46px;border-radius:11px;display:grid;place-items:center;font-family:'Archivo';font-weight:800;color:#fff;font-size:13px;flex-shrink:0}
+  .modal-head h3{font-family:'Archivo';font-weight:900;font-size:20px;letter-spacing:-.02em;line-height:1.15}
+  .m-role{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-top:3px}
+  .m-delta{margin-left:auto;font-family:'Anton';font-size:24px;line-height:1}
+  .m-chartwrap{background:var(--canvas);border-radius:12px;padding:14px 14px 6px;margin-bottom:18px}
+  .m-charttitle{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:8px}
+  .mdraw{stroke-dasharray:1600;stroke-dashoffset:1600;animation:draw 1.5s cubic-bezier(.5,0,.1,1) forwards}
+  .m-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+  .m-stat{background:var(--canvas);border-radius:10px;padding:13px 12px}
+  .m-stat .v{font-family:'Anton';font-size:21px;line-height:1}
+  .m-stat .k{font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted);margin-top:6px;letter-spacing:.03em;line-height:1.3}
+  .m-wins h4{font-family:'Archivo';font-weight:800;font-size:13px;margin-bottom:11px}
+  .m-wins ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .m-wins li{font-size:13px;color:#374151;padding-left:22px;position:relative;line-height:1.45}
+  .m-wins li::before{content:'▸';position:absolute;left:4px;top:0;font-weight:700;color:var(--c,var(--coral))}
+
+  .dd-overlay{position:fixed;inset:0;background:var(--canvas);z-index:110;overflow-y:auto}
+  .dd-overlay[hidden]{display:none}
+  .dd-bar{position:sticky;top:0;background:var(--surface);border-bottom:1px solid var(--line);padding:13px 24px;display:flex;align-items:center;gap:14px;z-index:5}
+  .dd-back{font-family:'Archivo';font-weight:700;font-size:13px;cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 14px;display:inline-flex;align-items:center;gap:7px;transition:.15s}
+  .dd-back:hover{background:var(--canvas)}
+  .dd-wrap{max-width:860px;margin:0 auto;padding:44px 24px 90px;animation:pop .3s cubic-bezier(.2,.8,.3,1)}
+  .dd-eyebrow{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral)}
+  .dd-h1{font-family:'Archivo';font-weight:900;font-size:38px;letter-spacing:-.03em;line-height:1.05;margin:14px 0 18px}
+  .dd-lede{font-size:17px;color:#3A4150;line-height:1.6;max-width:690px}
+  .dd-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px}
+  .dd-stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .dd-stat .v{font-family:'Anton';font-size:28px;line-height:1;color:var(--coral)}
+  .dd-stat .k{font-family:'Space Mono',monospace;font-size:9.5px;text-transform:uppercase;color:var(--muted);margin-top:7px;letter-spacing:.03em;line-height:1.3}
+  .dd-section{margin-top:50px}
+  .dd-section > h2{font-family:'Archivo';font-weight:900;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .dd-section > h2 .n{color:var(--coral)}
+  .dd-section > p{font-size:16px;color:#3A4150;line-height:1.65;max-width:690px}
+  .dd-problems{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .dd-card{border-radius:14px;padding:22px;border:1px solid #F6C9C9;background:#FFF8F8}
+  .dd-card .tag{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#D63A3F;margin-bottom:9px}
+  .dd-card h3{font-family:'Archivo';font-weight:800;font-size:17px;margin-bottom:9px}
+  .dd-card p{font-size:14px;color:#46505F;line-height:1.55}
+  .dd-sol{border-radius:14px;padding:24px 26px;background:#F4FBF8;border:1px solid #BFEAD8}
+  .dd-sol .tag{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--green);margin-bottom:10px}
+  .dd-sol ul{list-style:none;display:flex;flex-direction:column;gap:11px;margin-top:8px}
+  .dd-sol li{font-size:15px;color:#2C3A34;padding-left:24px;position:relative;line-height:1.5}
+  .dd-sol li::before{content:'✓';position:absolute;left:2px;color:var(--green);font-weight:700}
+  .dd-ba{display:flex;flex-direction:column;gap:11px}
+  .dd-ba-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+  .dd-ba-label{font-weight:700;font-size:14px;flex:1;min-width:150px}
+  .dd-ba-nums{display:flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-weight:700}
+  .dd-before{color:var(--muted)}
+  .dd-arrow{color:var(--coral)}
+  .dd-after{font-family:'Anton';font-size:22px;color:var(--coral)}
+  .dd-biz{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .dd-biz .dd-stat .v{color:var(--amber)}
+  .dd-bizhint{font-family:'Space Mono',monospace;font-size:10px;color:var(--amber);margin-top:12px;background:var(--amber-dim);padding:8px 12px;border-radius:8px;display:inline-block}
+  .dd-chartwrap{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:18px}
+  .dd-quote{font-family:'Archivo';font-weight:800;font-size:23px;line-height:1.4;letter-spacing:-.01em;border-left:4px solid var(--coral);padding-left:22px;color:var(--ink);max-width:730px}
+  .dd-cta{margin-top:54px;background:var(--ink);color:#fff;border-radius:14px;padding:32px 34px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;background-image:radial-gradient(circle at 88% 10%,rgba(255,90,60,.25),transparent 42%)}
+  .dd-cta h2{font-family:'Archivo';font-weight:900;font-size:22px;letter-spacing:-.02em}
+  .dd-cta .cta-actions{margin-left:auto;display:flex;gap:11px;flex-wrap:wrap}
+
+  .cta{background:var(--ink);color:#fff;border-radius:var(--radius);padding:34px 38px;display:flex;align-items:center;gap:28px;margin-bottom:16px;flex-wrap:wrap;background-image:radial-gradient(circle at 88% 10%,rgba(255,90,60,.25),transparent 42%)}
+  .cta h2{font-family:'Archivo';font-weight:900;font-size:24px;letter-spacing:-.02em;line-height:1.15}
+  .cta p{color:#A9AEBD;font-size:14px;margin-top:8px;max-width:440px}
+  .cta-actions{margin-left:auto;display:flex;gap:11px;flex-wrap:wrap}
+  .btn{font-family:'Archivo';font-weight:700;font-size:14px;padding:13px 22px;border-radius:10px;cursor:pointer;border:0;transition:.16s;display:inline-flex;align-items:center;gap:8px}
+  .btn-primary{background:var(--coral);color:#fff}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px var(--coral)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.16)}
+  .btn-ghost:hover{background:rgba(255,255,255,.14)}
+  .foot{text-align:center;padding:6px 0 10px;font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);line-height:1.7}
+  .foot b{color:var(--ink)}
+
+  @media (max-width:1024px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.row{grid-template-columns:1fr}.kpi .num{font-size:38px}}
+  @media (max-width:768px){
+    .rail{width:100%;height:auto;flex-direction:row;position:sticky;top:0;padding:10px 14px;gap:4px;justify-content:flex-start}
+    .rail-logo{margin-bottom:0;width:34px;height:34px;font-size:18px}
+    .rail-spacer{display:none}.rail-item{width:40px;height:40px}
+    body{flex-direction:column}
+    .topbar{padding:12px 16px;flex-wrap:wrap}
+    .search-wrap{order:3;flex-basis:100%;max-width:none}
+    .content{padding:18px 16px}
+    .row2{grid-template-columns:1fr}
+    .cta{padding:26px 24px}.cta-actions{margin-left:0;width:100%}
+    .domain-tags{margin-left:0;width:100%}
+    .dd-problems{grid-template-columns:1fr}.dd-strip{grid-template-columns:1fr 1fr}.dd-h1{font-size:29px}
+    .dd-bar{padding:12px 16px}.dd-wrap{padding:32px 16px 70px}
+    .dd-cta{padding:26px 22px}.dd-cta .cta-actions{margin-left:0;width:100%}
+  }
+  @media (max-width:600px){
+    .kpi-grid{grid-template-columns:1fr 1fr;gap:11px}
+    .kpi{padding:14px 15px}.kpi .num{font-size:32px}
+    .domain-meta h1{font-size:21px}
+    .favicon{width:50px;height:50px;font-size:22px}
+    .panel{padding:16px 16px}
+    .cta h2{font-size:20px}.btn{flex:1;justify-content:center}
+    .rail-item:nth-child(n+6){display:none}
+    .m-stats{grid-template-columns:1fr 1fr}.modal{padding:20px 18px}
+    .dd-biz{grid-template-columns:1fr}
+  }
+  @media (max-width:380px){
+    .kpi-grid{grid-template-columns:1fr}
+    .wordmark{font-size:16px}.wordmark .tag{display:none}
+    .kpi .num{font-size:36px}.kbdpill{display:none}
+    .content{padding:14px 12px}.dd-strip{grid-template-columns:1fr}.dd-h1{font-size:25px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .trend-line{animation:none;stroke-dashoffset:0}
+    .gauge-arc{animation:none;stroke-dashoffset:55}
+    .cs-fill,.dist-fill,.mdraw{animation:none;stroke-dashoffset:0}
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+  <nav class="rail" aria-label="Navigation">
+    <div class="rail-logo" title="SERPiente">🐍</div>
+    <div class="rail-item active" title="Domain Overview">▦</div>
+    <div class="rail-item" title="Keywords">⌗</div>
+    <div class="rail-item" title="Case studies">📈</div>
+    <div class="rail-item" title="Positions">◎</div>
+    <div class="rail-item" title="Content">✎</div>
+    <div class="rail-spacer"></div>
+    <div class="rail-item" title="Settings">⚙</div>
+  </nav>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="wordmark">SERP<span class="dot">iente</span> <span class="tag">v0.1 beta</span></div>
+      <div class="search-wrap">
+        <div class="searchbar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>
+          <input data-t-ph="search.ph" aria-label="Search case studies" spellcheck="false" autocomplete="off">
+          <span class="kbd">↵</span>
+        </div>
+        <div class="search-dd" id="searchDD" hidden>
+          <div class="sdd-label" data-t="search.sdd">Case studies — pick one to open its report</div>
+          <div class="sdd-list"></div>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <div class="langtoggle" role="group" aria-label="Language">
+          <button class="langbtn active" data-lang="en">🇺🇸 EN</button>
+          <button class="langbtn" data-lang="es">🇲🇽 ES</button>
+        </div>
+        <span class="kbdpill">DB: 🇲🇽 MX</span>
+        <div class="avatar">AR</div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <div class="domain-head">
+        <div class="favicon">AR</div>
+        <div class="domain-meta">
+          <h1 data-t="hero.title">Andrés Rendón · SEO &amp; Content Strategist</h1>
+          <div class="url">
+            andresrendon.com
+            <span class="verified" data-t="hero.verified">✓ results verified in GSC + GA4</span>
+            <a class="li-link" href="https://www.linkedin.com/in/andresrendonromero/" target="_blank" rel="noopener">in/andresrendonromero ↗</a>
+          </div>
+        </div>
+        <div class="domain-tags">
+          <span class="pill gold" data-t="pill.finance">🎓 Finance pro · ex-KPMG</span>
+          <span class="pill green" data-t="pill.eeat">E-E-A-T in YMYL niches</span>
+          <span class="pill green" data-t="pill.onoff">On-page + Off-page SEO</span>
+          <span class="pill coral" data-t="pill.langmkt">EN ⇄ ES · LATAM</span>
+          <span class="pill dark" data-t="pill.mx">México</span>
+          <span class="pill line" data-t="pill.remote">🌎 Remote</span>
+        </div>
+      </div>
+
+      <div class="strip-row">
+        <span class="strip-label" data-t="niches.label">Verticals</span>
+        <span id="nicheList" style="display:contents"></span>
+      </div>
+      <div class="strip-row strip-certs">
+        <span class="strip-label" data-t="certs.label">Certifications</span>
+        <span id="certList" style="display:contents"></span>
+      </div>
+
+      <section class="kpi-grid">
+        <div class="card kpi">
+          <div class="label" data-t="kpi1.label">⚡ Authority Score</div>
+          <div class="num" data-count="78">0<small>/100</small></div>
+          <div class="delta up" data-t="kpi1.delta">▲ ex-KPMG · finance degree</div>
+        </div>
+        <div class="card kpi">
+          <div class="label" data-t="kpi2.label">📈 Organic traffic built</div>
+          <div class="num" data-count="61" data-suffix="K">0</div>
+          <div class="delta up" data-t="kpi2.delta">▲ peak /mo · 3 properties</div>
+        </div>
+        <div class="card kpi">
+          <div class="label" data-t="kpi3.label">⌗ Articles shipped</div>
+          <div class="num" data-count="1800" data-suffix="+">0</div>
+          <div class="delta up" data-t="kpi3.delta">▲ iGaming · fintech · crypto</div>
+        </div>
+        <div class="card kpi">
+          <div class="label" data-t="kpi4.label">🏆 Ranked keywords</div>
+          <div class="num" data-count="11" data-suffix="K+">0</div>
+          <div class="delta flat" data-t="kpi4.delta">◆ 1.6K → 11.4K at MDC</div>
+        </div>
+      </section>
+
+      <section class="row">
+        <div class="panel">
+          <div class="panel-head">
+            <h2 data-t="chart.title">📈 Organic traffic — career trajectory</h2>
+            <div class="legend"><span><i style="background:var(--coral)"></i><span data-t="chart.legend">combined visits/mo (K)</span></span></div>
+          </div>
+          <svg class="chart-svg" viewBox="0 0 640 230" preserveAspectRatio="none" role="img" aria-label="Career organic traffic trajectory">
+            <line class="ygrid" x1="0" y1="20"  x2="640" y2="20"/>
+            <line class="ygrid" x1="0" y1="80"  x2="640" y2="80"/>
+            <line class="ygrid" x1="0" y1="140" x2="640" y2="140"/>
+            <line class="ygrid" x1="0" y1="190" x2="640" y2="190"/>
+            <defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--coral)" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="var(--coral)" stop-opacity="0"/>
+            </linearGradient></defs>
+            <path d="M0,180 L0,180 91,165 183,132 274,108 366,84 457,58 549,32 640,14 L640,190 L0,190 Z" fill="url(#areaGrad)"/>
+            <polyline class="trend-line" points="0,180 91,165 183,132 274,108 366,84 457,58 549,32 640,14"/>
+            <circle class="dot-pt" cx="0" cy="180" r="3.5"/><circle class="dot-pt" cx="183" cy="132" r="3.5"/>
+            <circle class="dot-pt" cx="366" cy="84" r="3.5"/><circle class="dot-pt" cx="549" cy="32" r="3.5"/>
+            <circle class="dot-pt" cx="640" cy="14" r="4.5" style="fill:var(--coral)"/>
+            <text class="xlabel" x="0" y="218">2019</text><text class="xlabel" x="170" y="218">2021</text>
+            <text class="xlabel" x="350" y="218">2023</text><text class="xlabel" x="530" y="218">2025</text>
+            <text class="xlabel" x="600" y="218">'26</text>
+          </svg>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>⚡ Authority Score</h2><span class="sub">/100</span></div>
+          <div class="gauge-wrap">
+            <svg class="gauge-svg" viewBox="0 0 200 110">
+              <defs><linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="var(--amber)"/><stop offset="100%" stop-color="var(--coral)"/>
+              </linearGradient></defs>
+              <path class="gauge-arc-bg" d="M20,100 A80,80 0 0,1 180,100"/>
+              <path class="gauge-arc" d="M20,100 A80,80 0 0,1 180,100"/>
+            </svg>
+            <div class="gauge-score">78</div>
+            <div class="gauge-cap" data-t="gauge.cap">Domain Authority</div>
+            <p class="gauge-note" data-t="gauge.note">A finance professional who writes the content too — fluent in banking, trading and markets.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" style="margin-bottom:16px">
+        <div class="panel-head">
+          <h2><span data-t="kw.title">⌗ Top organic keywords</span> <span class="pill coral" style="font-size:9px;padding:3px 8px" data-t="kw.badge">ranked skills</span></h2>
+          <span class="sub" data-t="kw.sub">tap a row to expand capabilities</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr>
+              <th data-t="th.kw">Keyword (skill)</th><th class="r" data-t="th.vol">Volume</th><th class="r" data-t="th.kd">KD %</th><th class="r" data-t="th.pos">Pos.</th><th class="r" data-t="th.serp">SERP feature</th>
+            </tr></thead>
+            <tbody id="kwBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="row2">
+        <div class="panel">
+          <div class="panel-head"><h2 data-t="cs.title">📈 Case studies — organic growth</h2><span class="sub" data-t="cs.sub">click for the full report</span></div>
+          <div id="csList"></div>
+          <p class="cs-foot" data-t="cs.foot"></p>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2><span data-t="mdc.title">◎ What I ranked at MDC</span> <span class="pill coral" style="font-size:9px;padding:3px 8px" data-t="mdc.badge">highlight</span></h2><span class="sub" data-t="mdc.sub">live · Semrush · positions</span></div>
+          <div class="dist-row"><span class="dist-label">Top 3</span><div class="dist-track"><div class="dist-fill" style="--w:14%;background:var(--green)"></div></div><span class="dist-num" style="color:var(--green)">388</span></div>
+          <div class="dist-row"><span class="dist-label">4–10</span><div class="dist-track"><div class="dist-fill" style="--w:32%;background:var(--amber)"></div></div><span class="dist-num" style="color:var(--amber)">858</span></div>
+          <div class="dist-row"><span class="dist-label">11–20</span><div class="dist-track"><div class="dist-fill" style="--w:42%;background:var(--cobalt)"></div></div><span class="dist-num" style="color:var(--cobalt)">1,141</span></div>
+          <div class="dist-row"><span class="dist-label">21–50</span><div class="dist-track"><div class="dist-fill" style="--w:100%;background:#8B93A3"></div></div><span class="dist-num" style="color:#8B93A3">2,690</span></div>
+          <div class="dist-row"><span class="dist-label">51–100</span><div class="dist-track"><div class="dist-fill" style="--w:80%;background:var(--muted)"></div></div><span class="dist-num" style="color:var(--muted)">2,139</span></div>
+          <div class="feat-title" data-t="feat.title">Reach &amp; SERP features</div>
+          <div class="feat-chips">
+            <span class="feat-chip" style="background:var(--green-dim);color:var(--green)"><b>388</b> <span data-t="feat.top3">in Top 3</span></span>
+            <span class="feat-chip" style="background:#EAF0FF;color:var(--cobalt)"><b>2,110</b> SERP features</span>
+            <span class="feat-chip"><b>11.4K</b> <span data-t="feat.total">Total keywords</span></span>
+            <span class="feat-chip"><b>40K</b> <span data-t="feat.organic">Organic /mo</span></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div>
+          <h2 data-t="cta.title">Want this domain on your team?</h2>
+          <p data-t="cta.p">Strategy and execution in one person — bilingual EN/ES, finance-grade rigor, results verified in GSC + GA4. Currently taking on select Q3 projects.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="mailto:arendon9128@gmail.com" data-t="cta.btn1">Start a conversation →</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/andresrendonromero/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </section>
+
+      <p class="foot" data-t="foot.text"></p>
+
+    </main>
+  </div>
+
+  <!-- DEEP DIVE -->
+  <div class="dd-overlay" id="deepdive" hidden>
+    <div class="dd-bar">
+      <button class="dd-back" id="ddBack" data-t="dd.back">← Back to dashboard</button>
+      <div class="wordmark">SERP<span class="dot">iente</span></div>
+    </div>
+    <div class="dd-wrap" id="dd-wrap"></div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-name">
+      <button class="modal-close" id="mClose" aria-label="Close">✕</button>
+      <div class="modal-head">
+        <div class="m-fav" id="m-fav"></div>
+        <div><h3 id="m-name"></h3><div class="m-role" id="m-role"></div></div>
+        <div class="m-delta" id="m-delta"></div>
+      </div>
+      <div class="m-chartwrap"><div class="m-charttitle" id="m-charttitle"></div><div id="m-chart"></div></div>
+      <div class="m-stats" id="m-stats"></div>
+      <div class="m-wins"><h4 id="m-winstitle"></h4><ul id="m-wins"></ul></div>
+      <div id="m-full"></div>
+    </div>
+  </div>
+
+<script>
+  var LANG='en';
+
+  /* ============ i18n dictionary (chrome) ============ */
+  const I18N={
+    en:{
+      'search.ph':'Search a case study…',
+      'search.sdd':'Case studies — pick one to open its report',
+      'hero.title':'Andrés Rendón · SEO &amp; Content Strategist',
+      'hero.verified':'✓ results verified in GSC + GA4',
+      'pill.finance':'🎓 Finance pro · ex-KPMG','pill.eeat':'E-E-A-T in YMYL niches','pill.onoff':'On-page + Off-page SEO',
+      'pill.langmkt':'EN ⇄ ES · LATAM','pill.mx':'México','pill.remote':'🌎 Remote',
+      'niches.label':'Verticals','certs.label':'Certifications',
+      'kpi1.label':'⚡ Authority Score','kpi1.delta':'▲ ex-KPMG · finance degree',
+      'kpi2.label':'📈 Organic traffic built','kpi2.delta':'▲ peak /mo · 3 properties',
+      'kpi3.label':'⌗ Articles shipped','kpi3.delta':'▲ iGaming · fintech · crypto',
+      'kpi4.label':'🏆 Ranked keywords','kpi4.delta':'◆ 1.6K → 11.4K at MDC',
+      'chart.title':'📈 Organic traffic — career trajectory','chart.legend':'combined visits/mo (K)',
+      'gauge.cap':'Domain Authority','gauge.note':'A finance professional who writes the content too — fluent in banking, trading and markets.',
+      'kw.title':'⌗ Top organic keywords','kw.badge':'ranked skills','kw.sub':'tap a row to expand capabilities',
+      'th.kw':'Keyword (skill)','th.vol':'Volume','th.kd':'KD %','th.pos':'Pos.','th.serp':'SERP feature',
+      'cs.title':'📈 Case studies — organic growth','cs.sub':'click for the full report',
+      'cs.foot':'+ <b>1,800+ articles</b> shipped across iGaming, fintech &amp; crypto.<br>Bachelor\u2019s in Finance &amp; Banking · ex-<b>Transfer Pricing @ KPMG</b> — content that passes legal review.',
+      'mdc.title':'◎ What I ranked at MDC','mdc.badge':'highlight','mdc.sub':'live · Semrush · positions',
+      'feat.title':'Reach &amp; SERP features','feat.top3':'in Top 3','feat.total':'Peak keywords','feat.organic':'Organic /mo',
+      'cta.title':'Want this domain on your team?',
+      'cta.p':'Strategy and execution in one person — bilingual EN/ES, finance-grade rigor, results verified in GSC + GA4. Currently taking on select Q3 projects.',
+      'cta.btn1':'Start a conversation →',
+      'foot.text':'This isn\u2019t Semrush. It\u2019s <b>Andrés Rendón\u2019s</b> portfolio dressed up as an SEO platform.<br>Case-study numbers verified in <b>GSC + GA4</b>. 🐍',
+      'dd.back':'← Back to dashboard','m.winstitle':'What I did','m.full':'Read the full case study →','dd.ctaTitle':'Want the same on your domain?','cs.view':'View report →'
+    },
+    es:{
+      'search.ph':'Busca un caso de estudio…',
+      'search.sdd':'Casos de estudio — elige uno para abrir su reporte',
+      'hero.title':'Andrés Rendón · Estratega de SEO y Contenido',
+      'hero.verified':'✓ resultados verificados en GSC + GA4',
+      'pill.finance':'🎓 Financiero · ex-KPMG','pill.eeat':'E-E-A-T en nichos YMYL','pill.onoff':'SEO On-page + Off-page',
+      'pill.langmkt':'EN ⇄ ES · LATAM','pill.mx':'México','pill.remote':'🌎 Remoto',
+      'niches.label':'Verticales','certs.label':'Certificaciones',
+      'kpi1.label':'⚡ Authority Score','kpi1.delta':'▲ ex-KPMG · grado en finanzas',
+      'kpi2.label':'📈 Tráfico orgánico construido','kpi2.delta':'▲ pico /mes · 3 propiedades',
+      'kpi3.label':'⌗ Artículos publicados','kpi3.delta':'▲ iGaming · fintech · crypto',
+      'kpi4.label':'🏆 Keywords posicionadas','kpi4.delta':'◆ 1.6K → 11.4K en MDC',
+      'chart.title':'📈 Tráfico orgánico — trayectoria','chart.legend':'visitas/mes combinadas (K)',
+      'gauge.cap':'Autoridad de dominio','gauge.note':'Un profesional de finanzas que además escribe el contenido — domina banca, trading y mercados.',
+      'kw.title':'⌗ Top keywords orgánicas','kw.badge':'skills posicionadas','kw.sub':'toca una fila para ver capacidades',
+      'th.kw':'Keyword (skill)','th.vol':'Volumen','th.kd':'KD %','th.pos':'Pos.','th.serp':'SERP feature',
+      'cs.title':'📈 Casos de estudio — crecimiento orgánico','cs.sub':'clic para el reporte completo',
+      'cs.foot':'+ <b>1,800+ artículos</b> publicados en iGaming, fintech y crypto.<br>Bachelor\u2019s in Finance &amp; Banking · ex-<b>Transfer Pricing @ KPMG</b> — contenido que pasa revisión legal.',
+      'mdc.title':'◎ Lo que posicioné en MDC','mdc.badge':'destacado','mdc.sub':'en vivo · Semrush · posiciones',
+      'feat.title':'Alcance y SERP features','feat.top3':'en Top 3','feat.total':'Keywords pico','feat.organic':'Orgánico /mes',
+      'cta.title':'¿Quieres este dominio en tu equipo?',
+      'cta.p':'Estrategia y ejecución en una sola persona — bilingüe EN/ES, rigor financiero, resultados verificados en GSC + GA4. Tomando proyectos selectos este Q3.',
+      'cta.btn1':'Iniciar conversación →',
+      'foot.text':'Esto no es Semrush. Es el portafolio de <b>Andrés Rendón</b> disfrazado de plataforma SEO.<br>Cifras de los casos verificadas en <b>GSC + GA4</b>. 🐍',
+      'dd.back':'← Volver al dashboard','m.winstitle':'Lo que hice','m.full':'Leer el caso completo →','dd.ctaTitle':'¿Quieres lo mismo en tu dominio?','cs.view':'Ver reporte →'
+    }
+  };
+
+  /* ============ verticals & certifications ============ */
+  const NICHES={en:['iGaming','Fintech','Crypto','Consumer Banking','Trading Education','Link Building / Off-page'],
+                es:['iGaming','Fintech','Crypto','Banca de consumo','Educación de trading','Link Building / Off-page']};
+  const CERTS={en:['Semrush Certified','Google Analytics (GA4)','API integration (GSC · GA4 · Semrush)'],
+               es:['Certificado en Semrush','Google Analytics (GA4)','Integración de APIs (GSC · GA4 · Semrush)']};
+
+  /* ============ keyword rows ============ */
+  const ROWS=[
+    {vol:'40,500',kd:94,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'Core edge',es:'Ventaja clave'},sc:'gold',
+     label:{en:'finance, banking &amp; trading SME',es:'SME en finanzas, banca y trading'},
+     sub:{en:'real E-E-A-T for YMYL money content',es:'E-E-A-T real para contenido YMYL de dinero'},
+     capL:{en:'Why this is the moat',es:'Por qué es el foso'},
+     caps:{en:['E-E-A-T signals','YMYL niches','Bachelor\u2019s in Finance &amp; Banking','Banking &amp; neobanks','Trading, brokers &amp; markets','Equities · derivatives · forex','Crypto markets','Transfer pricing (ex-KPMG)','Reads financial statements','FINRA / SEC / RG compliance'],
+            es:['Señales E-E-A-T','Nichos YMYL','Bachelor\u2019s in Finance &amp; Banking','Banca y neobancos','Trading, brokers y mercados','Acciones · derivados · forex','Mercados cripto','Transfer pricing (ex-KPMG)','Lee estados financieros','Cumplimiento FINRA / SEC / RG']}},
+    {vol:'49,500',kd:71,kdc:'var(--amber)',pos:1,pc:'p1',serp:{en:'Featured snippet',es:'Featured snippet'},sc:'',
+     label:{en:'content strategy &amp; roadmaps',es:'estrategia de contenido y roadmaps'},
+     sub:{en:'strategy + execution in one person',es:'estrategia + ejecución en una persona'},
+     capL:{en:'What this includes',es:'Qué incluye'},
+     caps:{en:['Topic &amp; keyword research','Editorial calendars','Content cluster maps','Content briefs','Competitor gap analysis','KPI &amp; ROI modeling'],
+            es:['Investigación de temas y keywords','Calendarios editoriales','Mapas de clusters','Briefs de contenido','Análisis de brechas','Modelado de KPI y ROI']}},
+    {vol:'27,100',kd:64,kdc:'var(--amber)',pos:1,pc:'p1',serp:{en:'Featured snippet',es:'Featured snippet'},sc:'',
+     label:{en:'on-page SEO',es:'SEO on-page'},
+     sub:{en:'every page earns its ranking',es:'cada página se gana su ranking'},
+     capL:{en:'What this includes',es:'Qué incluye'},
+     caps:{en:['Title &amp; meta optimization','Header / content structure','Internal linking','Schema / JSON-LD','Keyword targeting &amp; intent','Image &amp; Core Web Vitals'],
+            es:['Optimización de title y meta','Estructura de contenido','Enlazado interno','Schema / JSON-LD','Targeting de keywords e intención','Imágenes y Core Web Vitals']}},
+    {vol:'12,100',kd:81,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'—',es:'—'},sc:'none',
+     label:{en:'off-page SEO &amp; link building',es:'SEO off-page y link building'},
+     sub:{en:'authority, not just on-site work',es:'autoridad, no solo trabajo on-site'},
+     capL:{en:'What this includes',es:'Qué incluye'},
+     caps:{en:['Link building','Digital PR &amp; outreach','Backlink audits','Anchor-text strategy','Referring-domain growth','Authority building'],
+            es:['Link building','PR digital y outreach','Auditorías de backlinks','Estrategia de anchor text','Crecimiento de dominios de referencia','Construcción de autoridad']}},
+    {vol:'22,200',kd:83,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'—',es:'—'},sc:'none',
+     label:{en:'topical authority (hub &amp; spoke)',es:'autoridad temática (hub &amp; spoke)'},
+     sub:{en:'0 → 5K/mo organic, País Lector',es:'0 → 5K/mes orgánico, País Lector'},
+     capL:{en:'What this includes',es:'Qué incluye'},
+     caps:{en:['Pillar / cluster architecture','Entity SEO','Internal-linking systems','E-E-A-T signals','Emotion-based navigation'],
+            es:['Arquitectura pillar / cluster','SEO de entidades','Sistemas de enlazado interno','Señales E-E-A-T','Navegación por emociones']}},
+    {vol:'18,100',kd:88,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'People also ask',es:'People also ask'},sc:'',
+     label:{en:'iGaming / fintech content',es:'contenido iGaming / fintech'},
+     sub:{en:'writes within FINRA, SEC &amp; RG frameworks',es:'escribe dentro de marcos FINRA, SEC y RG'},
+     capL:{en:'What this includes',es:'Qué incluye'},
+     caps:{en:['Compliance-aware writing','Casino / sportsbook content','Broker &amp; platform reviews','Crypto explainers','Responsible-gambling framing'],
+            es:['Redacción con cumplimiento','Contenido casino / sportsbook','Reseñas de brokers y plataformas','Explicativos de cripto','Enfoque de juego responsable']}},
+    {vol:'14,800',kd:74,kdc:'var(--amber)',pos:2,pc:'p2',serp:{en:'AI Overview',es:'AI Overview'},sc:'ai',
+     label:{en:'AEO / AI Overview optimization',es:'optimización AEO / AI Overviews'},
+     sub:{en:'cited in ChatGPT, AI Overviews &amp; Gemini',es:'citado en ChatGPT, AI Overviews y Gemini'},
+     capL:{en:'What this includes',es:'Qué incluye'},
+     caps:{en:['Answer-first formatting','Structured data','Entity optimization','AI-citation engineering','Featured-snippet targeting'],
+            es:['Formato answer-first','Datos estructurados','Optimización de entidades','Ingeniería de citas en IA','Targeting de featured snippets']}},
+    {vol:'6,600',kd:86,kdc:'var(--coral)',pos:1,pc:'p1',serp:{en:'—',es:'—'},sc:'none',
+     label:{en:'technical SEO migrations',es:'migraciones de SEO técnico'},
+     sub:{en:'Ghost → WordPress, hreflang, schema, CWV',es:'Ghost → WordPress, hreflang, schema, CWV'},
+     capL:{en:'What this includes',es:'Qué incluye'},
+     caps:{en:['Platform migrations','hreflang','Redirect mapping','Crawl / index control','Core Web Vitals','Schema / JSON-LD'],
+            es:['Migraciones de plataforma','hreflang','Mapeo de redirects','Control de rastreo / indexación','Core Web Vitals','Schema / JSON-LD']}},
+    {vol:'5,400',kd:68,kdc:'var(--amber)',pos:1,pc:'p1',serp:{en:'—',es:'—'},sc:'none',
+     label:{en:'multilingual SEO (EN ⇄ ES)',es:'SEO multilingüe (EN ⇄ ES)'},
+     sub:{en:'one strategist, two markets, no translation',es:'un estratega, dos mercados, sin traducción'},
+     capL:{en:'What this includes',es:'Qué incluye'},
+     caps:{en:['Native EN / ES','Market-specific strategy','hreflang setup','Transcreation, not translation','MX · ES · CO · AR · US reach'],
+            es:['EN / ES nativo','Estrategia por mercado','Configuración hreflang','Transcreación, no traducción','Alcance MX · ES · CO · AR · US']}}
+  ];
+
+  /* ============ case studies: cards / modals / deep dives (per language) ============ */
+  const DATA={
+    en:{
+      companies:{
+        mdc:{name:'MDC Trading',role:'SEO Content Manager · trading & finance',color:'#3D6BFF',fav:'MDC',delta:'1K → 45K',barW:94,growth:'45× organic · 11.4K keywords',
+          chartTitle:'Organic visits over time — visits/mo (K)',
+          series:[{l:'M0',v:1},{l:'',v:5},{l:'',v:11},{l:'',v:18},{l:'',v:26},{l:'',v:34},{l:'',v:41},{l:'M18',v:45}],
+          stats:[['45K','organic /mo'],['388','keywords in top 3'],['2,110','SERP features'],['11.4K','ranked keywords']],
+          wins:['Built the entire SEO architecture from near zero — content map, cluster logic, compounding.','Keyword mapping across futures, forex, crypto and broker sub-verticals.','Cluster expansion: 1,600 → 11,424 ranked keywords.','Drove up to 183 qualified trading leads per month from organic.','Evergreen refresh cycles on seasonal intent, hreflang for US-Spanish, Trustpilot SEO, UTM tracking.']},
+        tiu:{name:'The Investor U',role:'SEO & content lead · equities · ES',color:'#11B981',fav:'TIU',delta:'100 → 11K',barW:86,growth:'110× · 88% organic',
+          chartTitle:'Organic sessions over time — sessions/mo (K)',
+          series:[{l:'M0',v:0.1},{l:'',v:0.8},{l:'',v:2},{l:'',v:3.8},{l:'',v:5.8},{l:'',v:7.8},{l:'',v:9.6},{l:'M16',v:11}],
+          stats:[['11K+','organic /mo'],['88%','of all traffic'],['85.1K','GSC clicks · 16mo'],['5.36M','impressions']],
+          wins:['Took organic from ~100 to 11K+ monthly sessions in a competitive equities market.','Targeted low-competition keywords (dividends, P/E ratio, Warren Buffett portfolio) to rank fast without authority.','Made organic search 88% of all site traffic.','85.1K Search Console clicks and 5.36M impressions over 16 months.']},
+        pl:{name:'País Lector',role:'Founder · own SEO lab · ES',color:'#FF5A3C',fav:'PL',delta:'0 → 5K',barW:62,growth:'built from zero · no budget',
+          chartTitle:'Organic clicks over time — GSC, last 16 mo (K)',
+          series:[{l:'2/25',v:0.4},{l:'',v:1.2},{l:'',v:2.1},{l:'',v:2.8},{l:'',v:3.4},{l:'',v:4.4},{l:'2/26',v:5.2},{l:'',v:4.3},{l:'6/26',v:3.6}],
+          stats:[['39.5K','GSC clicks · 16mo'],['1.49M','impressions'],['8.6','avg. position'],['1.5K','organic keywords']],
+          wins:['Built from zero — no budget, no backlinks — against government-backed institutions and magazines.','Emotion-based hub-and-spoke architecture; 784K+ aggregate volume in the “Amor” cluster.','JSON-LD structured data, internal-linking systems, E-E-A-T through original analysis.','Now cited across AI search — ChatGPT, AI Overviews & Gemini (63 pages indexed).']}
+      },
+      deep:{
+        mdc:{eyebrow:'Full case study · YMYL: Trading & Finance',h1:'MDC Trading: from 1K to 45K monthly organic visits.',
+          lede:'A trading platform that published constantly and ranked for almost nothing. The finance was wrong and the SEO was never applied — fatal in a YMYL niche where Google rewards demonstrable expertise. I fixed both in one pass.',
+          strip:[['1K→45K','Monthly organic visits'],['+614%','Keywords (1.6K→11.4K)'],['388','Keywords in top 3'],['1M+','Impressions /mo peak']],
+          situation:'They were shipping content on a steady cadence. Traffic stayed flat. The blog kept growing; the rankings didn\u2019t. Two problems were quietly canceling out every article they published \u2014 and they fed each other.',
+          problems:[{tag:'Problem 01 — E-E-A-T',h3:'The finance was wrong',p:'The previous SEO didn\u2019t understand finance. Articles on futures, forex, brokers and risk were shallow or simply incorrect. Trading is textbook YMYL \u2014 Your Money or Your Life \u2014 and Google will not rank money content it can\u2019t trust. No expertise, no E-E-A-T, no rankings. Traders bounce the moment they spot an error.'},
+                    {tag:'Problem 02 — Architecture',h3:'The SEO was never applied',p:'Publishing without a system: no keyword mapping, no cluster logic, no search-intent match, no internal linking. Volume without architecture doesn\u2019t compound \u2014 it just fills a CMS.'}],
+          solIntro:'Because I\u2019m a finance professional <em>and</em> an SEO, there was no hand-off and no second hire. I built genuine E-E-A-T into a YMYL niche while fixing the architecture \u2014 in the same pass:',
+          solList:['Rewrote and deepened every money page with real financial accuracy \u2014 the first-hand expertise (the first \u201CE\u201D in E-E-A-T) a YMYL niche demands.','Mapped keywords across every sub-vertical: futures, forex, crypto and brokers.','Expanded the ranked footprint from 1,600 to 11,424 keywords.','Built evergreen frameworks with seasonal-intent refresh cycles.','Shipped hreflang for the US-Spanish audience, Trustpilot page SEO, and UTM tracking.'],
+          ba:[['Monthly organic visits','1K','45K'],['Ranked keywords','1,600','11,424'],['Keywords in top 3','—','388'],['Peak impressions /mo','—','1M+']],
+          business:{title:'Business impact — leads',stats:[['183','Peak leads / mo'],['129','Avg leads / mo'],['Organic','Lead source']],hint:'Documented leads from MDC reporting · final months on record (other analytics excluded).'},
+          chartTitle:'Organic visits over time — visits/mo (K)',
+          quote:'\u201CMost SEOs can build the architecture. Most finance writers can\u2019t do SEO. MDC moved because one person did both \u2014 and got the finance right.\u201D'},
+        tiu:{eyebrow:'Full case study · YMYL: Investing & Equities',h1:'The Investor U: from ~100 to 11K monthly organic sessions.',
+          lede:'A near-zero investing site in one of the most YMYL niches there is. No domain authority, no backlinks. It ranked fast for one reason: the content was genuinely expert \u2014 real E-E-A-T where most competitors fake it.',
+          strip:[['100→11K','Organic sessions /mo'],['88%','Of all traffic'],['85.1K','GSC clicks · 16mo'],['5.36M','Impressions']],
+          situation:'~100 monthly visits in a competitive equities-content market dominated by established finance brands. Almost no organic presence, no authority, and no budget to buy links.',
+          problems:[{tag:'Problem 01 — E-E-A-T',h3:'Investing content is pure YMYL',p:'Dividends, P/E ratios, portfolio strategy \u2014 this is money advice. Google holds it to the highest E-E-A-T bar, and readers won\u2019t trust a faceless blog with their savings. Generic, non-expert content simply does not rank here.'},
+                    {tag:'Problem 02 — No authority',h3:'A new site can\u2019t fight head-on',p:'With no backlink profile and no brand, going after high-authority head terms is a losing game. The site needed rankings before it had domain authority \u2014 a chicken-and-egg problem.'}],
+          solIntro:'I used my finance background to win the trust battle, and SEO strategy to win the authority battle \u2014 at the same time:',
+          solList:['Wrote investing content with real expertise (dividends, P/E ratio, Warren Buffett portfolio) \u2014 E-E-A-T strong enough to rank in a YMYL niche without authority.','Targeted low-competition, high-intent keywords that could rank fast on a young domain.','Built topical depth so early wins compounded into authority over time.','Made organic search 88% of all site traffic \u2014 a self-sustaining channel, not a paid drip.'],
+          ba:[['Monthly organic sessions','~100','11K+'],['Organic share of traffic','—','88%'],['GSC clicks (16 mo)','—','85.1K'],['Impressions (16 mo)','—','5.36M']],
+          chartTitle:'Organic sessions over time — sessions/mo (K)',
+          quote:'\u201CYou can\u2019t buy your way into a YMYL niche. The Investor U ranked because the content was actually expert \u2014 the trust came first, the authority followed.\u201D'},
+        pl:{eyebrow:'Full case study · Owned SEO lab',h1:'País Lector: from zero to a cited authority — no budget.',
+          lede:'My own SEO lab. Built from nothing against government-backed institutions, with zero budget and zero backlinks. It won on architecture and original-analysis E-E-A-T \u2014 and is now cited across AI search.',
+          strip:[['0→5K','GSC clicks /mo'],['1.49M','Impressions · 16mo'],['8.6','Avg. position'],['63','Pages cited in AI']],
+          situation:'A literature brand starting at zero \u2014 no backlinks, no brand, no money \u2014 competing for the same queries as government-funded institutions and decades-old magazines with enormous authority.',
+          problems:[{tag:'Problem 01 — Authority gap',h3:'Out-ranking institutions with no backlinks',p:'When your competitors are government-backed sites, you can\u2019t win on domain authority. The only lever left is being genuinely more useful and more expert than they are \u2014 E-E-A-T over brute-force links.'},
+                    {tag:'Problem 02 — Commodity content',h3:'Poems are everywhere',p:'Copy-pasted poem pages exist by the thousand. Without original value, a new page is invisible \u2014 no trust signals, no reason for Google or a reader to choose it.'}],
+          solIntro:'I treated my own site as the proof-of-concept for everything I sell \u2014 architecture plus earned authority:',
+          solList:['Wrote original literary analysis on every page \u2014 first-hand expertise that manufactures real E-E-A-T where competitors just republish.','Built an emotion-based hub-and-spoke architecture; 784K+ aggregate volume in the \u201CAmor\u201D cluster alone.','JSON-LD structured data, internal-linking systems and topical depth that compounds.','Earned authority so durable the site is now cited across ChatGPT, AI Overviews and Gemini (63 pages).'],
+          ba:[['GSC clicks /mo','0','5K'],['Impressions (16 mo)','—','1.49M'],['Avg. position','—','8.6'],['Pages cited in AI search','—','63']],
+          chartTitle:'Organic clicks over time — GSC, last 16 mo (K)',
+          quote:'\u201CAuthority isn\u2019t bought with backlinks \u2014 it\u2019s earned with original expertise. País Lector out-ranks institutions because the content is genuinely better.\u201D'}
+      }
+    },
+    es:{
+      companies:{
+        mdc:{name:'MDC Trading',role:'SEO Content Manager · trading y finanzas',color:'#3D6BFF',fav:'MDC',delta:'1K → 45K',barW:94,growth:'45× orgánico · 11.4K keywords',
+          chartTitle:'Visitas orgánicas en el tiempo — visitas/mes (K)',
+          series:[{l:'M0',v:1},{l:'',v:5},{l:'',v:11},{l:'',v:18},{l:'',v:26},{l:'',v:34},{l:'',v:41},{l:'M18',v:45}],
+          stats:[['45K','orgánico /mes'],['388','keywords en top 3'],['2,110','SERP features'],['11.4K','keywords posicionadas']],
+          wins:['Construí toda la arquitectura SEO casi desde cero — mapa de contenido, lógica de clusters, efecto compuesto.','Keyword mapping en futuros, forex, crypto y sub-verticales de brokers.','Expansión de clusters: 1,600 → 11,424 keywords posicionadas.','Generó hasta 183 leads de trading calificados al mes desde orgánico.','Ciclos de refresh evergreen por intención estacional, hreflang US-Spanish, SEO de Trustpilot, tracking UTM.']},
+        tiu:{name:'The Investor U',role:'Lead de SEO y contenido · acciones · ES',color:'#11B981',fav:'TIU',delta:'100 → 11K',barW:86,growth:'110× · 88% orgánico',
+          chartTitle:'Sesiones orgánicas en el tiempo — sesiones/mes (K)',
+          series:[{l:'M0',v:0.1},{l:'',v:0.8},{l:'',v:2},{l:'',v:3.8},{l:'',v:5.8},{l:'',v:7.8},{l:'',v:9.6},{l:'M16',v:11}],
+          stats:[['11K+','orgánico /mes'],['88%','del tráfico total'],['85.1K','clicks GSC · 16m'],['5.36M','impresiones']],
+          wins:['Llevé el orgánico de ~100 a 11K+ sesiones mensuales en un mercado de acciones competido.','Targeting de keywords de baja competencia (dividends, P/E ratio, portafolio de Warren Buffett) para rankear rápido sin autoridad.','Hice que el orgánico fuera el 88% de todo el tráfico del sitio.','85.1K clicks en Search Console y 5.36M impresiones en 16 meses.']},
+        pl:{name:'País Lector',role:'Fundador · mi laboratorio SEO · ES',color:'#FF5A3C',fav:'PL',delta:'0 → 5K',barW:62,growth:'desde cero · sin presupuesto',
+          chartTitle:'Clicks orgánicos en el tiempo — GSC, últimos 16m (K)',
+          series:[{l:'2/25',v:0.4},{l:'',v:1.2},{l:'',v:2.1},{l:'',v:2.8},{l:'',v:3.4},{l:'',v:4.4},{l:'2/26',v:5.2},{l:'',v:4.3},{l:'6/26',v:3.6}],
+          stats:[['39.5K','clicks GSC · 16m'],['1.49M','impresiones'],['8.6','posición prom.'],['1.5K','keywords orgánicas']],
+          wins:['Construido desde cero — sin presupuesto, sin backlinks — contra instituciones con respaldo gubernamental y revistas.','Arquitectura hub-and-spoke basada en emociones; 784K+ de volumen agregado solo en el cluster “Amor”.','Datos estructurados JSON-LD, sistemas de enlazado interno, E-E-A-T vía análisis original.','Hoy citado en la búsqueda con IA — ChatGPT, AI Overviews y Gemini (63 páginas indexadas).']}
+      },
+      deep:{
+        mdc:{eyebrow:'Caso de estudio · YMYL: Trading y Finanzas',h1:'MDC Trading: de 1K a 45K visitas orgánicas mensuales.',
+          lede:'Una plataforma de trading que publicaba sin parar y rankeaba para casi nada. Las finanzas estaban mal y el SEO nunca se aplicó — fatal en un nicho YMYL donde Google premia la expertise demostrable. Arreglé ambos en una sola pasada.',
+          strip:[['1K→45K','Visitas orgánicas /mes'],['+614%','Keywords (1.6K→11.4K)'],['388','Keywords en top 3'],['1M+','Impresiones /mes pico']],
+          situation:'Publicaban contenido en una cadencia constante. El tráfico seguía plano. El blog crecía; los rankings no. Dos problemas anulaban en silencio cada artículo que publicaban \u2014 y se alimentaban mutuamente.',
+          problems:[{tag:'Problema 01 — E-E-A-T',h3:'Las finanzas estaban mal',p:'El SEO anterior no entendía finanzas. Los artículos sobre futuros, forex, brokers y riesgo eran superficiales o simplemente incorrectos. El trading es YMYL de manual \u2014 Your Money or Your Life \u2014 y Google no rankea contenido de dinero en el que no puede confiar. Sin expertise, no hay E-E-A-T, no hay rankings. Y el trader se va en cuanto detecta un error.'},
+                    {tag:'Problema 02 — Arquitectura',h3:'El SEO nunca se aplicó',p:'Publicar sin sistema: sin keyword mapping, sin lógica de clusters, sin match de intención, sin enlazado interno. El volumen sin arquitectura no compone \u2014 solo llena un CMS.'}],
+          solIntro:'Como soy profesional de finanzas <em>y</em> SEO, no hubo hand-off ni un segundo hire. Construí E-E-A-T genuino en un nicho YMYL mientras arreglaba la arquitectura \u2014 en la misma pasada:',
+          solList:['Reescribí y profundicé cada página de dinero con precisión financiera real \u2014 la expertise de primera mano (la primera \u201CE\u201D de E-E-A-T) que exige un nicho YMYL.','Mapeé keywords en cada sub-vertical: futuros, forex, crypto y brokers.','Expandí la huella posicionada de 1,600 a 11,424 keywords.','Construí frameworks evergreen con ciclos de refresh por intención estacional.','Implementé hreflang para la audiencia US-Spanish, SEO de la página de Trustpilot y tracking UTM.'],
+          ba:[['Visitas orgánicas /mes','1K','45K'],['Keywords posicionadas','1,600','11,424'],['Keywords en top 3','—','388'],['Impresiones /mes pico','—','1M+']],
+          business:{title:'Impacto de negocio — leads',stats:[['183','Leads / mes pico'],['129','Leads / mes prom.'],['Orgánico','Fuente de leads']],hint:'Leads documentados del reporte de MDC · últimos meses registrados (otras analíticas excluidas).'},
+          chartTitle:'Visitas orgánicas en el tiempo — visitas/mes (K)',
+          quote:'\u201CCasi cualquier SEO puede armar la arquitectura. Casi ningún redactor de finanzas sabe hacer SEO. MDC se movió porque una sola persona hizo ambas \u2014 y entendió las finanzas.\u201D'},
+        tiu:{eyebrow:'Caso de estudio · YMYL: Inversión y Acciones',h1:'The Investor U: de ~100 a 11K sesiones orgánicas mensuales.',
+          lede:'Un sitio de inversión casi en cero, en uno de los nichos más YMYL que existen. Sin autoridad de dominio, sin backlinks. Rankeó rápido por una razón: el contenido era genuinamente experto \u2014 E-E-A-T real donde casi todos lo fingen.',
+          strip:[['100→11K','Sesiones orgánicas /mes'],['88%','Del tráfico total'],['85.1K','Clicks GSC · 16m'],['5.36M','Impresiones']],
+          situation:'~100 visitas mensuales en un mercado de contenido de acciones dominado por marcas financieras establecidas. Casi sin presencia orgánica, sin autoridad y sin presupuesto para comprar links.',
+          problems:[{tag:'Problema 01 — E-E-A-T',h3:'El contenido de inversión es puro YMYL',p:'Dividendos, ratios P/E, estrategia de portafolio \u2014 esto es consejo de dinero. Google lo somete a la vara más alta de E-E-A-T, y el lector no le confía sus ahorros a un blog sin rostro. El contenido genérico y no experto simplemente no rankea aquí.'},
+                    {tag:'Problema 02 — Sin autoridad',h3:'Un sitio nuevo no puede pelear de frente',p:'Sin perfil de backlinks y sin marca, ir por los head terms de alta autoridad es perder. El sitio necesitaba rankings antes de tener autoridad de dominio \u2014 el problema del huevo y la gallina.'}],
+          solIntro:'Usé mi formación financiera para ganar la batalla de la confianza, y la estrategia SEO para ganar la de la autoridad \u2014 al mismo tiempo:',
+          solList:['Escribí contenido de inversión con expertise real (dividends, P/E ratio, portafolio de Warren Buffett) \u2014 E-E-A-T suficiente para rankear en un nicho YMYL sin autoridad.','Targeting de keywords de baja competencia y alta intención que podían rankear rápido en un dominio joven.','Construí profundidad temática para que las victorias tempranas compusieran autoridad con el tiempo.','Hice que el orgánico fuera el 88% del tráfico \u2014 un canal autosostenible, no un goteo pagado.'],
+          ba:[['Sesiones orgánicas /mes','~100','11K+'],['% orgánico del tráfico','—','88%'],['Clicks GSC (16 m)','—','85.1K'],['Impresiones (16 m)','—','5.36M']],
+          chartTitle:'Sesiones orgánicas en el tiempo — sesiones/mes (K)',
+          quote:'\u201CNo puedes comprar tu entrada a un nicho YMYL. The Investor U rankeó porque el contenido era de verdad experto \u2014 primero llegó la confianza, después la autoridad.\u201D'},
+        pl:{eyebrow:'Caso de estudio · Mi laboratorio SEO',h1:'País Lector: de cero a una autoridad citada — sin presupuesto.',
+          lede:'Mi propio laboratorio SEO. Construido desde nada contra instituciones con respaldo gubernamental, con cero presupuesto y cero backlinks. Ganó por arquitectura y E-E-A-T de análisis original \u2014 y hoy lo cita la búsqueda con IA.',
+          strip:[['0→5K','Clicks GSC /mes'],['1.49M','Impresiones · 16m'],['8.6','Posición prom.'],['63','Páginas citadas en IA']],
+          situation:'Una marca de literatura empezando en cero \u2014 sin backlinks, sin marca, sin dinero \u2014 compitiendo por las mismas queries que instituciones financiadas por el gobierno y revistas con décadas de autoridad.',
+          problems:[{tag:'Problema 01 — Brecha de autoridad',h3:'Superar a instituciones sin backlinks',p:'Cuando tus competidores son sitios con respaldo gubernamental, no ganas por autoridad de dominio. La única palanca que queda es ser genuinamente más útil y más experto que ellos \u2014 E-E-A-T por encima de la fuerza bruta de los links.'},
+                    {tag:'Problema 02 — Contenido commodity',h3:'Los poemas están en todas partes',p:'Las páginas de poemas copy-paste existen por miles. Sin valor original, una página nueva es invisible \u2014 sin señales de confianza, sin razón para que Google o un lector la elijan.'}],
+          solIntro:'Traté mi propio sitio como la prueba de concepto de todo lo que vendo \u2014 arquitectura más autoridad ganada:',
+          solList:['Escribí análisis literario original en cada página \u2014 expertise de primera mano que fabrica E-E-A-T real donde los demás solo republican.','Construí una arquitectura hub-and-spoke basada en emociones; 784K+ de volumen agregado solo en el cluster \u201CAmor\u201D.','Datos estructurados JSON-LD, sistemas de enlazado interno y profundidad temática que compone.','Gané una autoridad tan durable que hoy el sitio es citado en ChatGPT, AI Overviews y Gemini (63 páginas).'],
+          ba:[['Clicks GSC /mes','0','5K'],['Impresiones (16 m)','—','1.49M'],['Posición prom.','—','8.6'],['Páginas citadas en IA','—','63']],
+          chartTitle:'Clicks orgánicos en el tiempo — GSC, últimos 16m (K)',
+          quote:'\u201CLa autoridad no se compra con backlinks \u2014 se gana con expertise original. País Lector supera a instituciones porque el contenido es genuinamente mejor.\u201D'}
+      }
+    }
+  };
+
+  /* ============ renderers ============ */
+  function comp(){ return DATA[LANG].companies; }
+  function deep(){ return DATA[LANG].deep; }
+  const order=['mdc','tiu','pl'];
+
+  function renderNiches(){
+    document.getElementById('nicheList').innerHTML = NICHES[LANG].map(n=>'<span class="chip-soft">'+n+'</span>').join('');
+  }
+  function renderCerts(){
+    document.getElementById('certList').innerHTML = CERTS[LANG].map(c=>'<span class="chip-soft"><span class="ck">✓</span>'+c+'</span>').join('');
+  }
+  function renderKeywords(){
+    const body=document.getElementById('kwBody');
+    body.innerHTML = ROWS.map(r=>{
+      const serpHtml = r.sc==='none'
+        ? '<span class="serpfeat none">—</span>'
+        : '<span class="serpfeat '+r.sc+'">'+r.serp[LANG]+'</span>';
+      const caps = r.caps[LANG].map(c=>'<span class="cap-chip">'+c+'</span>').join('');
+      return '<tr class="kw-row" tabindex="0" role="button" aria-expanded="false">'+
+        '<td class="kw"><span class="caret">▸</span>'+r.label[LANG]+'<small>'+r.sub[LANG]+'</small></td>'+
+        '<td class="r val">'+r.vol+'</td>'+
+        '<td class="r"><div class="kd"><span class="kd-num">'+r.kd+'</span><span class="kd-bar"><span class="kd-fill" style="width:'+r.kd+'%;background:'+r.kdc+'"></span></span></div></td>'+
+        '<td class="r"><span class="pos '+r.pc+'">'+r.pos+'</span></td>'+
+        '<td class="r">'+serpHtml+'</td></tr>'+
+        '<tr class="kw-detail"><td colspan="5"><div class="cap-label">'+r.capL[LANG]+'</div><div class="cap-chips">'+caps+'</div></td></tr>';
+    }).join('');
+    body.querySelectorAll('.kw-row').forEach(row=>{
+      function toggle(){ const d=row.nextElementSibling; const o=row.classList.toggle('open'); if(d&&d.classList.contains('kw-detail')) d.classList.toggle('open',o); row.setAttribute('aria-expanded',o); }
+      row.addEventListener('click',toggle);
+      row.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();} });
+    });
+  }
+  function renderCaseItems(){
+    const c=comp();
+    document.getElementById('csList').innerHTML = order.map(k=>{
+      const x=c[k];
+      return '<div class="cs-item" data-company="'+k+'" tabindex="0" role="button">'+
+        '<div class="cs-top"><div class="cs-name">'+x.name+' <small>'+x.role+'</small></div><div class="cs-delta">'+x.delta+'</div></div>'+
+        '<div class="cs-track"><div class="cs-fill" style="--w:'+x.barW+'%"></div></div>'+
+        '<div class="cs-bottom"><span class="cs-growth">'+x.growth+'</span><span class="cs-view">'+I18N[LANG]['cs.view']+'</span></div></div>';
+    }).join('');
+    document.querySelectorAll('.cs-item').forEach(it=>{
+      it.addEventListener('click',()=>openModal(it.dataset.company));
+      it.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(it.dataset.company);} });
+    });
+  }
+
+  const reduceM = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function chartSVG(series, color){
+    const W=560,H=180,pb=22,n=series.length;
+    const max=Math.max.apply(null,series.map(s=>s.v))*1.12||1;
+    const X=i=>(i/(n-1))*W, Y=v=>(H-pb)-(v/max)*(H-pb-10);
+    const pts=series.map((s,i)=>X(i).toFixed(1)+','+Y(s.v).toFixed(1));
+    const area='M0,'+(H-pb)+' L'+pts.join(' L')+' L'+W+','+(H-pb)+' Z';
+    const dots=series.map((s,i)=>'<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(s.v).toFixed(1)+'" r="'+(i===n-1?4:2.8)+'" fill="'+(i===n-1?color:'#fff')+'" stroke="'+color+'" stroke-width="2.2"/>').join('');
+    const labels=series.map((s,i)=>s.l?'<text class="xlabel" x="'+X(i).toFixed(0)+'" y="'+(H-3)+'" text-anchor="'+(i===0?'start':i===n-1?'end':'middle')+'">'+s.l+'</text>':'').join('');
+    const dc=reduceM?'':'mdraw';
+    return '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:190px;display:block">'+
+      '<defs><linearGradient id="mg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+color+'" stop-opacity=".2"/><stop offset="100%" stop-color="'+color+'" stop-opacity="0"/></linearGradient></defs>'+
+      '<path d="'+area+'" fill="url(#mg)"/>'+
+      '<polyline points="'+pts.join(' ')+'" fill="none" stroke="'+color+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="'+dc+'"/>'+dots+labels+'</svg>';
+  }
+
+  /* ============ modal ============ */
+  const overlay=document.getElementById('modal');
+  function openModal(key){
+    const c=comp()[key]; if(!c) return;
+    const fav=document.getElementById('m-fav'); fav.textContent=c.fav; fav.style.background=c.color;
+    document.getElementById('m-name').textContent=c.name;
+    document.getElementById('m-role').textContent=c.role;
+    const d=document.getElementById('m-delta'); d.textContent=c.delta; d.style.color=c.color;
+    document.getElementById('m-charttitle').textContent=c.chartTitle;
+    document.getElementById('m-chart').innerHTML=chartSVG(c.series,c.color);
+    document.getElementById('m-stats').innerHTML=c.stats.map(s=>'<div class="m-stat"><div class="v" style="color:'+c.color+'">'+s[0]+'</div><div class="k">'+s[1]+'</div></div>').join('');
+    document.getElementById('m-winstitle').textContent=I18N[LANG]['m.winstitle'];
+    const winsUl=document.getElementById('m-wins'); winsUl.style.setProperty('--c',c.color);
+    winsUl.innerHTML=c.wins.map(w=>'<li>'+w+'</li>').join('');
+    const full=document.getElementById('m-full');
+    full.innerHTML='<button class="btn btn-primary" id="mFullBtn" style="margin-top:20px;width:100%;justify-content:center">'+I18N[LANG]['m.full']+'</button>';
+    document.getElementById('mFullBtn').addEventListener('click',()=>{ closeModal(); openDeepdive(key); });
+    overlay.hidden=false; document.body.style.overflow='hidden'; document.getElementById('mClose').focus();
+  }
+  function closeModal(){ overlay.hidden=true; document.body.style.overflow=''; }
+  document.getElementById('mClose').addEventListener('click',closeModal);
+  overlay.addEventListener('click',e=>{ if(e.target===overlay) closeModal(); });
+
+  /* ============ deep dive ============ */
+  const deepdive=document.getElementById('deepdive');
+  let currentDeep=null;
+  function renderDeepdive(key){
+    const d=deep()[key], c=comp()[key];
+    const strip=d.strip.map(s=>'<div class="dd-stat"><div class="v">'+s[0]+'</div><div class="k">'+s[1]+'</div></div>').join('');
+    const probs=d.problems.map(p=>'<div class="dd-card"><div class="tag">'+p.tag+'</div><h3>'+p.h3+'</h3><p>'+p.p+'</p></div>').join('');
+    const sol=d.solList.map(li=>'<li>'+li+'</li>').join('');
+    const ba=d.ba.map(r=>'<div class="dd-ba-row"><div class="dd-ba-label">'+r[0]+'</div><div class="dd-ba-nums"><span class="dd-before">'+r[1]+'</span><span class="dd-arrow">→</span><span class="dd-after">'+r[2]+'</span></div></div>').join('');
+    let bizHtml='';
+    if(d.business){
+      const bs=d.business.stats.map(s=>'<div class="dd-stat"><div class="v">'+s[0]+'</div><div class="k">'+s[1]+'</div></div>').join('');
+      bizHtml='<div class="dd-section"><h2><span class="n">05</span> '+d.business.title+'</h2><div class="dd-biz">'+bs+'</div><span class="dd-bizhint">⚑ '+d.business.hint+'</span></div>';
+    }
+    const resultN = d.business ? '04' : '04';
+    return '<div class="dd-eyebrow">'+d.eyebrow+'</div><h1 class="dd-h1">'+d.h1+'</h1><p class="dd-lede">'+d.lede+'</p>'+
+      '<div class="dd-strip">'+strip+'</div>'+
+      '<div class="dd-section"><h2><span class="n">01</span> '+(LANG==='es'?'La situación':'The situation')+'</h2><p>'+d.situation+'</p></div>'+
+      '<div class="dd-section"><h2><span class="n">02</span> '+(LANG==='es'?'Dos problemas, no uno':'Two problems, not one')+'</h2><div class="dd-problems">'+probs+'</div></div>'+
+      '<div class="dd-section"><h2><span class="n">03</span> '+(LANG==='es'?'Una persona, ambos problemas':'One person, both problems')+'</h2><div class="dd-sol"><div class="tag">'+(LANG==='es'?'Lo que hice':'What I did')+'</div><p style="font-size:15px;color:#2C3A34;line-height:1.55;margin-bottom:2px">'+d.solIntro+'</p><ul>'+sol+'</ul></div></div>'+
+      '<div class="dd-section"><h2><span class="n">'+resultN+'</span> '+(LANG==='es'?'Lo que se movió':'What moved')+'</h2><div class="dd-ba">'+ba+'</div>'+
+        '<div class="dd-chartwrap"><div class="m-charttitle">'+d.chartTitle+'</div><div id="dd-chart"></div></div></div>'+
+      bizHtml+
+      '<div class="dd-section"><p class="dd-quote">'+d.quote+'</p></div>'+
+      '<div class="dd-cta"><div><h2>'+I18N[LANG]['dd.ctaTitle']+'</h2></div><div class="cta-actions">'+
+        '<a class="btn btn-primary" href="mailto:arendon9128@gmail.com">'+I18N[LANG]['cta.btn1']+'</a>'+
+        '<a class="btn btn-ghost" href="https://www.linkedin.com/in/andresrendonromero/" target="_blank" rel="noopener">LinkedIn</a></div></div>';
+  }
+  function openDeepdive(key){
+    key=(key&&deep()[key])?key:'mdc'; currentDeep=key;
+    document.getElementById('dd-wrap').innerHTML=renderDeepdive(key);
+    document.getElementById('dd-chart').innerHTML=chartSVG(comp()[key].series, comp()[key].color);
+    deepdive.hidden=false; document.body.style.overflow='hidden'; deepdive.scrollTop=0; document.getElementById('ddBack').focus();
+  }
+  function closeDeepdive(){ deepdive.hidden=true; currentDeep=null; document.body.style.overflow=''; }
+  document.getElementById('ddBack').addEventListener('click',closeDeepdive);
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(!overlay.hidden) closeModal(); if(!deepdive.hidden) closeDeepdive(); } });
+
+  /* ============ search suggestions ============ */
+  (function(){
+    const wrap=document.querySelector('.search-wrap');
+    const input=wrap.querySelector('input');
+    const dd=document.getElementById('searchDD');
+    const list=dd.querySelector('.sdd-list');
+    function build(filter){
+      const f=(filter||'').trim().toLowerCase(); const c=comp();
+      const keys=order.filter(k=>{ if(!f) return true; const x=c[k]; return (x.name+' '+x.role+' '+k).toLowerCase().includes(f); });
+      if(!keys.length){ list.innerHTML='<div class="sdd-empty">'+(LANG==='es'?'Sin coincidencias — prueba MDC, Investor o País.':'No match — try MDC, Investor or País.')+'</div>'; return; }
+      list.innerHTML=keys.map((k,i)=>{ const x=c[k];
+        return '<button class="sdd-item'+(i===0?' active':'')+'" data-company="'+k+'"><span class="sdd-fav" style="background:'+x.color+'">'+x.fav+'</span><span class="sdd-text"><span class="sdd-name">'+x.name+'</span><span class="sdd-sub">'+x.role+'</span></span><span class="sdd-delta" style="color:'+x.color+'">'+x.delta+'</span></button>';
+      }).join('');
+    }
+    function show(){ build(input.value); dd.hidden=false; }
+    function hide(){ dd.hidden=true; }
+    function active(){ return dd.querySelector('.sdd-item.active'); }
+    function move(dir){ const items=[...dd.querySelectorAll('.sdd-item')]; if(!items.length)return; let i=items.indexOf(active()); i=(i+dir+items.length)%items.length; items.forEach(it=>it.classList.remove('active')); items[i].classList.add('active'); items[i].scrollIntoView({block:'nearest'}); }
+    input.addEventListener('focus',show); input.addEventListener('input',show);
+    input.addEventListener('keydown',e=>{
+      if(e.key==='ArrowDown'){e.preventDefault();move(1);} else if(e.key==='ArrowUp'){e.preventDefault();move(-1);}
+      else if(e.key==='Enter'){e.preventDefault(); const a=active()||dd.querySelector('.sdd-item'); if(a){openDeepdive(a.dataset.company);hide();input.blur();}}
+      else if(e.key==='Escape'){hide();input.blur();}
+    });
+    dd.addEventListener('mousedown',e=>{ const it=e.target.closest('.sdd-item'); if(it){e.preventDefault();openDeepdive(it.dataset.company);hide();input.blur();} });
+    document.addEventListener('click',e=>{ if(!wrap.contains(e.target)) hide(); });
+    window.__buildSuggestions=build;
+  })();
+
+  /* ============ count-up KPIs ============ */
+  (function(){
+    const reduce=reduceM;
+    document.querySelectorAll('.num[data-count]').forEach(el=>{
+      const io=new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ run(el); io.unobserve(el);} }),{threshold:.5});
+      io.observe(el);
+    });
+    function run(el){
+      const target=parseFloat(el.dataset.count), suffix=el.dataset.suffix||'';
+      const small=el.querySelector('small'); const sh=small?small.outerHTML:'';
+      if(reduce){ el.innerHTML=target.toLocaleString('en-US')+suffix+sh; return; }
+      const dur=1100,start=performance.now();
+      (function tick(now){ const p=Math.min((now-start)/dur,1); el.innerHTML=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString('en-US')+suffix+sh; if(p<1) requestAnimationFrame(tick); })(performance.now());
+    }
+  })();
+
+  /* ============ language toggle ============ */
+  function applyLang(lang){
+    LANG=lang; document.documentElement.lang=lang;
+    document.querySelectorAll('[data-t]').forEach(el=>{ const k=el.getAttribute('data-t'); if(I18N[lang][k]!==undefined) el.innerHTML=I18N[lang][k]; });
+    document.querySelectorAll('[data-t-ph]').forEach(el=>{ const k=el.getAttribute('data-t-ph'); if(I18N[lang][k]!==undefined) el.placeholder=I18N[lang][k]; });
+    renderNiches(); renderCerts(); renderKeywords(); renderCaseItems();
+    if(window.__buildSuggestions) window.__buildSuggestions('');
+    document.querySelectorAll('.langbtn').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
+    if(!overlay.hidden) closeModal();
+    if(!deepdive.hidden){ if(currentDeep) openDeepdive(currentDeep); else closeDeepdive(); }
+  }
+  document.querySelectorAll('.langbtn').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+
+  /* ============ init ============ */
+  applyLang('en');
+</script>
+</body>
+</html>
